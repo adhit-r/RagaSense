@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+asyncpg
+alembic
+pydantic
+python-dotenv
+numpy
+librosa
+tensorflow
+scikit-learn
+joblib
