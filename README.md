@@ -1,4 +1,28 @@
+---
+title: "RagaSense - AI-Powered Indian Classical Music Raga Detection"
+description: "Discover and analyze Indian classical music ragas using advanced AI technology. Upload audio files for instant raga identification with machine learning."
+keywords: "raga detection, indian classical music, AI music analysis, machine learning, audio processing, carnatic music, hindustani music, music technology"
+author: "RagaSense Team"
+og:title: "RagaSense - AI-Powered Indian Classical Music Raga Detection"
+og:description: "Discover and analyze Indian classical music ragas using advanced AI technology. Upload audio files for instant raga identification."
+og:type: "website"
+og:url: "https://github.com/adhit-r/RagaSense"
+twitter:card: "summary_large_image"
+twitter:title: "RagaSense - AI-Powered Indian Classical Music Raga Detection"
+twitter:description: "Discover and analyze Indian classical music ragas using advanced AI technology."
+---
+
 # RagaSense - AI-Powered Indian Classical Music Raga Detection
+
+[![Lynx](https://img.shields.io/badge/Lynx-Framework-blue.svg)](https://lynxjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![Convex](https://img.shields.io/badge/Convex-Backend-green.svg)](https://convex.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Python-red.svg)](https://fastapi.tiangolo.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/adhit-r/RagaSense?style=social)](https://github.com/adhit-r/RagaSense)
+[![Forks](https://img.shields.io/github/forks/adhit-r/RagaSense?style=social)](https://github.com/adhit-r/RagaSense)
+
+> **Discover and analyze Indian classical music ragas using advanced AI technology**
 
 A comprehensive full-stack application for detecting and analyzing Indian classical music ragas using machine learning, featuring a modern Lynx frontend and Convex real-time database.
 

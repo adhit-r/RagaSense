@@ -1,81 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RagaSense - Raga Recognition</title>
-    <meta name="description" content="Discover the raga in Indian classical music with AI-powered recognition" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            animation: {
-              'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'spin': 'spin 1s linear infinite',
-            }
-          }
-        }
-      }
+    <!-- Primary Meta Tags -->
+    <title>RagaSense - AI-Powered Indian Classical Music Raga Detection</title>
+    <meta name="title" content="RagaSense - AI-Powered Indian Classical Music Raga Detection">
+    <meta name="description" content="Discover and analyze Indian classical music ragas using advanced AI technology. Upload audio files for instant raga identification with machine learning.">
+    <meta name="keywords" content="raga detection, indian classical music, AI music analysis, machine learning, audio processing, carnatic music, hindustani music, music technology, raga identification, classical music AI">
+    <meta name="author" content="RagaSense Team">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adhit-r.github.io/RagaSense/">
+    <meta property="og:title" content="RagaSense - AI-Powered Indian Classical Music Raga Detection">
+    <meta property="og:description" content="Discover and analyze Indian classical music ragas using advanced AI technology. Upload audio files for instant raga identification.">
+    <meta property="og:image" content="https://adhit-r.github.io/RagaSense/og-image.png">
+    <meta property="og:site_name" content="RagaSense">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://adhit-r.github.io/RagaSense/">
+    <meta property="twitter:title" content="RagaSense - AI-Powered Indian Classical Music Raga Detection">
+    <meta property="twitter:description" content="Discover and analyze Indian classical music ragas using advanced AI technology.">
+    <meta property="twitter:image" content="https://adhit-r.github.io/RagaSense/twitter-image.png">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="RagaSense">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://adhit-r.github.io/RagaSense/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "RagaSense",
+        "description": "AI-Powered Indian Classical Music Raga Detection Platform",
+        "url": "https://adhit-r.github.io/RagaSense",
+        "applicationCategory": "MusicApplication",
+        "operatingSystem": "Web, iOS, Android",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "RagaSense Team",
+            "url": "https://github.com/adhit-r/RagaSense"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "RagaSense Team"
+        },
+        "keywords": "raga detection, indian classical music, AI music analysis, machine learning, audio processing",
+        "featureList": [
+            "Real-time Raga Detection",
+            "Cross-platform Support",
+            "AI-powered Music Analysis",
+            "User Authentication",
+            "Detection History",
+            "File Upload Support"
+        ],
+        "screenshot": "https://adhit-r.github.io/RagaSense/screenshot.png",
+        "softwareVersion": "1.0.0",
+        "datePublished": "2024-01-01",
+        "dateModified": "2024-01-01"
+    }
     </script>
     
-    <!-- Custom styles for Sazhaam-like UX -->
+    <!-- Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin': 'spin 1s linear infinite',
+                        'bounce': 'bounce 1s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
     <style>
-      .animate-pulse {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      
-      .animate-spin {
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes pulse {
-        0%, 100% {
-          opacity: 1;
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --background-color: #ffffff;
+            --text-color: #1f2937;
         }
-        50% {
-          opacity: .5;
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #0f172a;
+                --text-color: #f1f5f9;
+            }
         }
-      }
-      
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Inter', system-ui, sans-serif;
         }
-        to {
-          transform: rotate(360deg);
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
-      }
-      
-      /* Smooth transitions */
-      * {
-        transition: all 0.2s ease-in-out;
-      }
-      
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-      }
-      
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
     </style>
-  </head>
-  <body>
-    <div id="app"></div>
+</head>
+<body>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+    
+    <!-- Analytics (optional) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
 </html>
