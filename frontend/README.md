@@ -7,7 +7,7 @@ A modern, cross-platform frontend for RagaSense built with the Lynx framework, f
 - **Cross-Platform**: Single codebase for Web, iOS, and Android
 - **Sazhaam-like UX**: Modern, intuitive user interface
 - **Real-time Database**: Full Convex integration with authentication
-- **Raga Detection**: Upload and analyze audio files
+- **Raga Detection**: Upload and analyze audio files via local FastAPI backend
 - **Music Generation**: AI-powered music creation
 - **User Management**: Complete user profiles and settings
 - **Analytics**: Comprehensive usage tracking
@@ -22,10 +22,12 @@ A modern, cross-platform frontend for RagaSense built with the Lynx framework, f
 - **Database**: Convex (real-time, serverless)
 - **Authentication**: Convex Auth
 - **State Management**: Convex queries and mutations
+- **ML Backend**: Local FastAPI server
 
 ## Prerequisites
 
 - Node.js 18 or later
+- Python 3.9 or later (for FastAPI backend)
 - Bun package manager
 - Lynx Explorer (for testing)
 - Convex account and project
@@ -77,23 +79,26 @@ Edit `.env.local` with your configuration:
 # Convex Configuration
 NEXT_PUBLIC_CONVEX_URL=your_convex_deployment_url_here
 
-# Backend API
+# Backend API (Local FastAPI)
 NEXT_PUBLIC_API_URL=http://localhost:8000
-
-# Google Cloud (for ML services)
-NEXT_PUBLIC_GOOGLE_CLOUD_PROJECT=your_project_id_here
-NEXT_PUBLIC_GOOGLE_CLOUD_REGION=us-central1
 ```
 
-### 4. Development
+### 4. Start Backend (Required)
 
-Start the development server:
+The frontend requires the local FastAPI backend to be running:
+
+```bash
+# From the project root
+python -m backend.main
+```
+
+### 5. Start Frontend Development
 
 ```bash
 bun run dev
 ```
 
-### 5. Testing with Lynx Explorer
+### 6. Testing with Lynx Explorer
 
 1. Install Lynx Explorer from the [official guide](http://lynxjs.org/guide/start/quick-start.html)
 2. Scan the QR code or copy the bundle URL
@@ -163,8 +168,8 @@ The app uses Convex's built-in authentication system with support for:
 
 ### Raga Detection
 - Upload audio files (WAV, MP3, OGG, FLAC, M4A)
-- Real-time raga detection
-- Detection history and statistics
+- Real-time raga detection via local FastAPI backend
+- Detection history and statistics stored in Convex
 - Export detection results
 
 ### Music Generation
@@ -189,7 +194,8 @@ The app uses Convex's built-in authentication system with support for:
 1. **Database Changes**: Modify `convex/schema.ts` and run `convex deploy`
 2. **Function Development**: Edit functions in `convex/functions/`
 3. **Frontend Development**: Use ReactLynx components in `src/components/`
-4. **Testing**: Use Lynx Explorer for cross-platform testing
+4. **Backend Development**: Modify FastAPI backend in `backend/` directory
+5. **Testing**: Use Lynx Explorer for cross-platform testing
 
 ## Deployment
 
@@ -210,12 +216,19 @@ bun run build:android # For Android
 bun run convex:deploy
 ```
 
+### Backend Deployment
+```bash
+# Deploy FastAPI backend to your preferred hosting service
+# (Heroku, Railway, DigitalOcean, etc.)
+```
+
 ## Resources
 
 - [Lynx Documentation](http://lynxjs.org/)
 - [Convex Documentation](https://docs.convex.dev/)
 - [ReactLynx Guide](http://lynxjs.org/guide/react-lynx/)
 - [Rspeedy Build Tool](http://lynxjs.org/guide/build-tools/)
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
 
 ## Contributing
 
