@@ -1,0 +1,47 @@
+{
+  "name": "raga-detect",
+  "version": "1.0.0",
+  "description": "High-performance Raga Detection for Web and Mobile",
+  "private": true,
+  "workspaces": [
+    "platforms/web",
+    "platforms/native"
+  ],
+  "scripts": {
+    "start:web": "cd platforms/web && npm start",
+    "build:web": "cd platforms/web && npm run build",
+    "start:ios": "cd platforms/native && npm run ios",
+    "start:android": "cd platforms/native && npm run android",
+    "build:ios": "cd platforms/native && npm run build:ios",
+    "build:android": "cd platforms/native && npm run build:android",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@lynx-js/core": "^1.0.0",
+    "@lynx-js/audio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@lynx-js/cli": "^1.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

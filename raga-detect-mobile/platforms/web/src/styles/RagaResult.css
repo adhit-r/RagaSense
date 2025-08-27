@@ -1,0 +1,328 @@
+.raga-result {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-card {
+  background-color: var(--surface);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 2rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid var(--primary-color);
+}
+
+.raga-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.raga-name .icon {
+  color: var(--primary-light);
+}
+
+.raga-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+  border-radius: 3px;
+}
+
+.confidence-meter {
+  margin: 2rem 0;
+}
+
+.confidence-label {
+  font-size: 0.9rem;
+  color: var(--on-surface);
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-right: 0.5rem;
+  min-width: 120px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-label .icon {
+  width: 18px;
+  height: 18px;
+  color: var(--primary-color);
+}
+
+.confidence-bar {
+  height: 12px;
+  background-color: var(--background);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.confidence-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  animation: shimmer 2s infinite linear;
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.confidence-value {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.raga-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.detail-item {
+  background-color: var(--background);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.detail-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.notes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.note {
+  background-color: var(--primary-light);
+  color: var(--on-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.similar-ragas {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--background);
+}
+
+.similar-ragas h4 {
+  color: var(--on-surface);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.similar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.similar-raga {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.similar-name {
+  min-width: 120px;
+  font-weight: 500;
+  color: var(--on-surface);
+}
+
+.similar-confidence {
+  flex: 1;
+  height: 20px;
+  background-color: var(--background);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.similar-bar {
+  height: 100%;
+  min-width: 20px;
+  border-radius: 10px;
+  transition: width 0.5s ease-out;
+  position: relative;
+}
+
+.similar-percent {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.action-buttons .btn {
+  min-width: 150px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .btn.primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  box-shadow: 0 4px 15px rgba(98, 0, 238, 0.3);
+}
+
+.action-buttons .btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(98, 0, 238, 0.4);
+}
+
+.action-buttons .btn.secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.action-buttons .btn.secondary:hover {
+  background: rgba(98, 0, 238, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .raga-name {
+    font-size: 2rem;
+  }
+  
+  .raga-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .action-buttons .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .result-card {
+    padding: 1.5rem;
+  }
+  
+  .raga-name {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .confidence-meter {
+    margin: 1.5rem 0;
+  }
+  
+  .similar-raga {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .similar-name {
+    min-width: auto;
+  }
+  
+  .similar-confidence {
+    width: 100%;
+  }
+}

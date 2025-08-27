@@ -1,0 +1,37 @@
+# Use Python 3.9 slim image
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    python3-dev \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage Docker cache
+COPY ragasense_backend/requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy the application
+COPY ragasense_backend .
+
+# Create directory for any temporary files
+RUN mkdir -p /app/tmp
+
+# Set environment variables for production
+ENV PYTHONPATH=/app
+ENV PATH="/usr/local/bin:$PATH"
+
+# Expose port
+EXPOSE 8000
+
+# Command to run the FastAPI application with uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
