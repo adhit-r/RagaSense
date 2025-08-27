@@ -1,0 +1,110 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install build twine
+    
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: bun install
+    
+    - name: Build frontend
+      working-directory: ./frontend
+      run: bun run build:web
+    
+    - name: Build Python package
+      run: |
+        python -m build
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/*.whl
+        asset_name: ragasense-${{ github.ref_name }}-py3-none-any.whl
+        asset_content_type: application/octet-stream
+    
+    - name: Upload Frontend Build
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./frontend/dist/
+        asset_name: ragasense-frontend-${{ github.ref_name }}.zip
+        asset_content_type: application/zip
+    
+    - name: Generate Release Notes
+      id: release_notes
+      run: |
+        echo "## What's Changed" >> release_notes.md
+        echo "" >> release_notes.md
+        git log --oneline $(git describe --tags --abbrev=0 HEAD^)..HEAD >> release_notes.md
+        echo "" >> release_notes.md
+        echo "## Installation" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "### Backend" >> release_notes.md
+        echo "\`\`\`bash" >> release_notes.md
+        echo "pip install ragasense==${{ github.ref_name }}" >> release_notes.md
+        echo "\`\`\`" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "### Frontend" >> release_notes.md
+        echo "Download the frontend build from the release assets." >> release_notes.md
+    
+    - name: Update Release Notes
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const releaseNotes = fs.readFileSync('release_notes.md', 'utf8');
+          
+          await github.rest.repos.updateRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            release_id: ${{ steps.create_release.outputs.id }},
+            body: releaseNotes
+          });

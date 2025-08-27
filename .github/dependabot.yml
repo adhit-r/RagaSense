@@ -1,0 +1,91 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "maintainer1"
+    assignees:
+      - "maintainer1"
+    commit-message:
+      prefix: "pip"
+      prefix-development: "pip-dev"
+      include: "scope"
+
+  # Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "maintainer1"
+    assignees:
+      - "maintainer1"
+    commit-message:
+      prefix: "npm"
+      prefix-development: "npm-dev"
+      include: "scope"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "maintainer1"
+    assignees:
+      - "maintainer1"
+    commit-message:
+      prefix: "github-actions"
+      include: "scope"
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "maintainer1"
+    assignees:
+      - "maintainer1"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+
+  # Python dependencies for ML
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "maintainer1"
+    assignees:
+      - "maintainer1"
+    commit-message:
+      prefix: "pip-ml"
+      include: "scope"
+    ignore:
+      # Ignore major version updates for critical ML libraries
+      - dependency-name: "tensorflow"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "torch"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "librosa"
+        update-types: ["version-update:semver-major"]

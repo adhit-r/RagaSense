@@ -7,7 +7,7 @@ import uuid
 from pathlib import Path
 from datetime import datetime
 
-from ...services.raga_detector import classifier
+from ...services.raga_detector import raga_detection_service
 
 router = APIRouter(prefix="/ragas", tags=["raga_detection"])
 
@@ -52,6 +52,13 @@ async def detect_raga(
                 detail=f"Unsupported file type. Allowed types: {', '.join(allowed_extensions)}"
             )
         
+        # Check if service is ready
+        if not raga_detection_service.is_ready():
+            raise HTTPException(
+                status_code=503,
+                detail="Raga detection service is not ready. Please try again later."
+            )
+        
         # Save the uploaded file temporarily
         temp_file = None
         try:
@@ -63,16 +70,18 @@ async def detect_raga(
                 temp_file_path = temp_file.name
             
             # Get prediction
-            result = classifier.predict(temp_file_path)
+            result = raga_detection_service.predict(temp_file_path)
             
-            return {
-                "success": True,
-                "data": result,
-                "metadata": {
-                    "filename": audio.filename,
-                    "processed_at": datetime.utcnow().isoformat()
-                }
+            # Add request metadata
+            result['request_info'] = {
+                'filename': audio.filename,
+                'file_size': len(contents),
+                'file_type': file_ext,
+                'processed_at': datetime.utcnow().isoformat(),
+                'duration_limit': duration
             }
+            
+            return result
             
         finally:
             # Clean up the temporary file
@@ -90,17 +99,58 @@ async def get_supported_ragas():
     Get a list of all ragas that the model can detect.
     """
     try:
-        if not hasattr(classifier, 'label_encoder') or classifier.label_encoder is None:
-            raise HTTPException(status_code=503, detail="Model not loaded")
-            
-        ragas = list(classifier.label_encoder.classes_)
+        ragas = raga_detection_service.get_supported_ragas()
         
         return {
             "success": True,
             "data": {
                 "total_ragas": len(ragas),
-                "ragas": ragas
+                "ragas": ragas,
+                "model_info": raga_detection_service.get_model_info()
             }
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving supported ragas: {str(e)}")
+
+@router.get("/model-info", summary="Get model information")
+async def get_model_info():
+    """
+    Get information about the current raga detection model.
+    """
+    try:
+        model_info = raga_detection_service.get_model_info()
+        
+        return {
+            "success": True,
+            "data": model_info,
+            "service_status": {
+                "ready": raga_detection_service.is_ready(),
+                "timestamp": datetime.utcnow().isoformat()
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving model info: {str(e)}")
+
+@router.get("/health", summary="Health check")
+async def health_check():
+    """
+    Check the health status of the raga detection service.
+    """
+    try:
+        is_ready = raga_detection_service.is_ready()
+        model_info = raga_detection_service.get_model_info()
+        
+        return {
+            "success": True,
+            "status": "healthy" if is_ready else "degraded",
+            "service_ready": is_ready,
+            "model_info": model_info,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": datetime.utcnow().isoformat()
+        }
