@@ -1,182 +1,237 @@
 # RagaSense Frontend - Lynx Framework
 
-This is the frontend for RagaSense, built with the [Lynx framework](http://lynxjs.org/index.html) to achieve a beautiful, Sazhaam-like user experience.
+A modern, cross-platform frontend for RagaSense built with the Lynx framework, featuring Sazhaam-like UX and comprehensive Convex database integration.
 
 ## Features
 
-- **Sazhaam-like UX**: Modern, clean interface with smooth animations and transitions
-- **Cross-platform**: Write once, render anywhere (Web, iOS, Android)
-- **Real-time Raga Detection**: Upload audio files or record live
-- **Beautiful Design**: Gradient backgrounds, rounded corners, and modern typography
-- **Responsive**: Works perfectly on all device sizes
+- **Cross-Platform**: Single codebase for Web, iOS, and Android
+- **Sazhaam-like UX**: Modern, intuitive user interface
+- **Real-time Database**: Full Convex integration with authentication
+- **Raga Detection**: Upload and analyze audio files
+- **Music Generation**: AI-powered music creation
+- **User Management**: Complete user profiles and settings
+- **Analytics**: Comprehensive usage tracking
+- **File Management**: Audio file storage and organization
 
 ## Technology Stack
 
-- **Lynx Framework**: Cross-platform development framework
-- **ReactLynx**: Official React framework for Lynx
-- **Rspeedy**: Rspack-based Lynx build tool
-- **TypeScript**: Type-safe development
-- **Tailwind CSS**: Utility-first CSS framework
+- **Framework**: Lynx + ReactLynx
+- **Build Tool**: Rspeedy
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: Convex (real-time, serverless)
+- **Authentication**: Convex Auth
+- **State Management**: Convex queries and mutations
+
+## Prerequisites
+
+- Node.js 18 or later
+- Bun package manager
+- Lynx Explorer (for testing)
+- Convex account and project
 
 ## Getting Started
 
-### Prerequisites
+### 1. Install Dependencies
 
-1. **Node.js 18 or later** (requires Node.js 18.19 when using TypeScript as configuration)
-
-2. **Install Lynx Explorer** (for testing):
-   - **iOS Simulator**: Download from [Lynx Quick Start Guide](https://lynxjs.org/guide/start/quick-start.html#ios-simulator-platform=macos-arm64,explorer-platform=ios-simulator)
-   - **Android**: Scan QR code from GitHub Release or build from source
-   - **HarmonyOS**: Download pre-built app or build from source
-
-3. **Install Rspeedy** (Lynx build tool):
 ```bash
-npm create rspeedy@latest
-```
-
-### Installation
-
-1. Install dependencies:
-```bash
+cd frontend
 bun install
 ```
 
-2. Start the development server:
+### 2. Set up Convex
+
+1. **Install Convex CLI**:
+   ```bash
+   bun add -g convex
+   ```
+
+2. **Login to Convex**:
+   ```bash
+   convex login
+   ```
+
+3. **Initialize Convex** (if not already done):
+   ```bash
+   convex dev --configure
+   ```
+
+4. **Deploy your schema**:
+   ```bash
+   convex deploy
+   ```
+
+5. **Get your deployment URL** and add it to your environment variables.
+
+### 3. Environment Setup
+
+Copy the example environment file and configure it:
+
+```bash
+cp env.example .env.local
+```
+
+Edit `.env.local` with your configuration:
+
+```env
+# Convex Configuration
+NEXT_PUBLIC_CONVEX_URL=your_convex_deployment_url_here
+
+# Backend API
+NEXT_PUBLIC_API_URL=http://localhost:8000
+
+# Google Cloud (for ML services)
+NEXT_PUBLIC_GOOGLE_CLOUD_PROJECT=your_project_id_here
+NEXT_PUBLIC_GOOGLE_CLOUD_REGION=us-central1
+```
+
+### 4. Development
+
+Start the development server:
+
 ```bash
 bun run dev
 ```
 
-3. **Testing with Lynx Explorer**:
-   - You will see a QR code in the terminal
-   - Scan with your Lynx Explorer App, or
-   - If using simulator, copy the bundle URL and paste it in the "Enter Card URL" input in Lynx Explorer App and hit "Go"
+### 5. Testing with Lynx Explorer
 
-### Building
+1. Install Lynx Explorer from the [official guide](http://lynxjs.org/guide/start/quick-start.html)
+2. Scan the QR code or copy the bundle URL
+3. Test the app on your device
 
-Build for web:
-```bash
-bun run build:web
-```
+## Available Scripts
 
-Build for iOS:
-```bash
-bun run build:ios
-```
-
-Build for Android:
-```bash
-bun run build:android
-```
+- `bun run dev` - Start development server
+- `bun run build` - Build for all platforms
+- `bun run build:web` - Build for web only
+- `bun run build:ios` - Build for iOS
+- `bun run build:android` - Build for Android
+- `bun run preview` - Preview the build
+- `bun run lint` - Run linting
+- `bun run type-check` - Run TypeScript checks
+- `bun run convex:dev` - Start Convex development server
+- `bun run convex:deploy` - Deploy Convex functions
+- `bun run convex:codegen` - Generate Convex types
 
 ## Project Structure
 
 ```
 frontend/
+├── convex/                 # Convex database and functions
+│   ├── schema.ts          # Database schema
+│   ├── functions/         # Convex functions
+│   │   ├── auth.ts        # Authentication
+│   │   ├── ragas.ts       # Raga management
+│   │   ├── ragaDetection.ts # Detection history
+│   │   ├── files.ts       # File management
+│   │   ├── musicGeneration.ts # Music generation
+│   │   └── analytics.ts   # Analytics tracking
+│   └── convex.json        # Convex configuration
 ├── src/
-│   ├── components/
-│   │   └── RagaDetector.tsx    # Main raga detection component
-│   ├── styles/
-│   │   └── globals.css         # Global styles and animations
-│   └── App.tsx                # Main app component
-├── index.html                 # HTML template
-├── rspeedy.config.ts         # Rspeedy configuration
-├── tailwind.config.js        # Tailwind CSS configuration
-└── package.json              # Dependencies and scripts
+│   ├── components/        # ReactLynx components
+│   ├── hooks/            # Custom hooks for Convex
+│   ├── lib/              # Utilities and configurations
+│   ├── styles/           # Global styles
+│   └── types/            # TypeScript type definitions
+├── rspeedy.config.ts     # Lynx build configuration
+└── package.json          # Dependencies and scripts
 ```
 
-## Sazhaam-like UX Features
+## Convex Database Schema
 
-### Visual Design
-- **Gradient Backgrounds**: Purple to blue gradients for a modern look
-- **Rounded Corners**: 3xl border radius for cards and containers
-- **Shadow Effects**: Subtle shadows for depth and hierarchy
-- **Smooth Animations**: Fade-in, slide-up, and scale animations
+The application uses a comprehensive Convex schema with the following tables:
 
-### User Experience
-- **Touch-friendly**: Optimized for mobile touch interactions
-- **Live Recording**: Record audio directly in the app
-- **Real-time Feedback**: Loading states and progress indicators
-- **Error Handling**: Beautiful error states with helpful messages
+- **users**: User profiles and authentication
+- **ragas**: Raga information and metadata
+- **ragaDetections**: Detection history and results
+- **files**: Audio file storage and management
+- **musicGenerations**: AI music generation requests
+- **userSettings**: User preferences and settings
+- **userFavorites**: User's favorite ragas
+- **analytics**: Usage analytics and tracking
 
-### Responsive Design
-- **Mobile-first**: Optimized for mobile devices
-- **Cross-platform**: Works on iOS, Android, and Web
-- **Adaptive Layout**: Responsive grid and flexible components
+## Authentication
 
-## API Integration
+The app uses Convex's built-in authentication system with support for:
 
-The frontend integrates with the FastAPI backend for raga detection:
+- Email/password authentication
+- OAuth providers (Google, GitHub, etc.)
+- User profile management
+- Settings and preferences
 
-- **Upload Endpoint**: `/api/ragas/detect` for audio file processing
-- **Real-time Processing**: Live feedback during analysis
-- **Error Handling**: Graceful error states and retry mechanisms
+## Key Features
+
+### Raga Detection
+- Upload audio files (WAV, MP3, OGG, FLAC, M4A)
+- Real-time raga detection
+- Detection history and statistics
+- Export detection results
+
+### Music Generation
+- AI-powered music generation
+- Raga-specific composition
+- Generation history and management
+- Background processing support
+
+### User Management
+- Complete user profiles
+- Settings and preferences
+- Favorites and collections
+- Usage analytics
+
+### File Management
+- Audio file upload and storage
+- File organization and search
+- File statistics and analytics
 
 ## Development Workflow
 
-### Using Lynx Explorer
-
-1. **Start Development Server**:
-   ```bash
-   bun run dev
-   ```
-
-2. **Connect to Lynx Explorer**:
-   - Scan QR code with mobile app, or
-   - Copy bundle URL to simulator
-
-3. **Live Reload**: Make changes to `src/App.tsx` and see updates automatically
-
-### Debugging
-
-1. **Download Lynx DevTool**: Visit [Lynx DevTool](https://lynxjs.org/guide/debugging/devtool.html) to download the desktop application
-
-2. **Connect Device**: Use USB cable to connect debugging device
-
-3. **Start Debugging**: Follow the [Debugging Guide](https://lynxjs.org/guide/debugging/)
-
-## Customization
-
-### Colors
-The app uses a custom color palette:
-- Primary: Purple gradient (#8b5cf6)
-- Success: Green gradient (#10b981)
-- Error: Red gradient (#ef4444)
-
-### Animations
-Custom animations are defined in `globals.css`:
-- `fadeIn`: Smooth fade-in effect
-- `slideIn`: Slide-in from left
-- `scaleIn`: Scale-in effect for cards
+1. **Database Changes**: Modify `convex/schema.ts` and run `convex deploy`
+2. **Function Development**: Edit functions in `convex/functions/`
+3. **Frontend Development**: Use ReactLynx components in `src/components/`
+4. **Testing**: Use Lynx Explorer for cross-platform testing
 
 ## Deployment
 
 ### Web Deployment
-Build the web version and deploy to any static hosting service:
 ```bash
 bun run build:web
+# Deploy the dist/web folder to your hosting provider
 ```
 
 ### Mobile Deployment
-Use Lynx's built-in mobile deployment:
 ```bash
-bun run build:ios
-bun run build:android
+bun run build:ios    # For iOS
+bun run build:android # For Android
+```
+
+### Convex Deployment
+```bash
+bun run convex:deploy
 ```
 
 ## Resources
 
-- [Lynx Official Documentation](http://lynxjs.org/index.html)
-- [Quick Start Guide](https://lynxjs.org/guide/start/quick-start.html)
-- [ReactLynx Tutorial](https://lynxjs.org/guide/start/quick-start.html#reactlynx)
-- [Debugging Guide](https://lynxjs.org/guide/debugging/)
+- [Lynx Documentation](http://lynxjs.org/)
+- [Convex Documentation](https://docs.convex.dev/)
+- [ReactLynx Guide](http://lynxjs.org/guide/react-lynx/)
+- [Rspeedy Build Tool](http://lynxjs.org/guide/build-tools/)
 
 ## Contributing
 
-1. Follow the existing code style and patterns
-2. Add TypeScript types for all new components
-3. Test on multiple devices and screen sizes
-4. Ensure smooth animations and transitions
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test with Lynx Explorer
+5. Submit a pull request
 
-## License
+## Support
 
-This project is licensed under the MIT License.
+For issues and questions:
+- Check the [docs](docs/) folder
+- Create an issue on GitHub
+- Join our community discussions
+
+---
+
+Built with ❤️ for Indian classical music enthusiasts

@@ -1,0 +1,17 @@
+{
+  "project": {
+    "name": "ragasense",
+    "schemaPath": "./schema.ts",
+    "functionsPath": "./functions"
+  },
+  "deployment": {
+    "prod": {
+      "name": "ragasense-prod",
+      "url": "https://ragasense-prod.convex.cloud"
+    },
+    "dev": {
+      "name": "ragasense-dev",
+      "url": "https://ragasense-dev.convex.cloud"
+    }
+  }
+}
