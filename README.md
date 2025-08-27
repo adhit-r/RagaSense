@@ -227,6 +227,41 @@ convex dashboard
 - [ ] Social features
 - [ ] Performance optimization
 
+## 🗺️ Development Roadmap
+
+We have a comprehensive [development roadmap](docs/ROADMAP.md) with 23 detailed tasks organized into 4 phases:
+
+### **Phase 1: Foundation & Core Features** (Q1 2024)
+- ML model enhancement with real training data
+- Frontend polish and mobile app development
+- Complete Convex integration
+
+### **Phase 2: Advanced Features** (Q2 2024)
+- AI music generation capabilities
+- Social and collaborative features
+- Advanced analytics dashboard
+
+### **Phase 3: Enterprise & Scale** (Q3 2024)
+- Multi-tenant architecture
+- Performance optimization
+- Scalability improvements
+
+### **Phase 4: Innovation & Research** (Q4 2024)
+- Deep learning integration
+- Educational platform
+- Research collaboration
+
+## 📊 Project Management
+
+Track development progress with our [GitHub Project Board](https://github.com/adhit-r/RagaSense/projects):
+
+- **Visual Issue Tracking** with Kanban board
+- **Milestone Management** for each development phase
+- **Automated Workflows** for issue lifecycle
+- **Progress Analytics** and velocity tracking
+
+[Set up the project board](docs/PROJECT_BOARD_SETUP.md) to start contributing!
+
 ## 🚀 Deployment
 
 ### Local Development
@@ -260,6 +295,8 @@ bun run convex:deploy
 - [Codebase Organization](docs/CODEBASE_ORGANIZATION.md)
 - [Working System Guide](docs/WORKING_RAGA_DETECTION_SYSTEM.md)
 - [Frontend Setup](frontend/README.md)
+- [Development Roadmap](docs/ROADMAP.md)
+- [Project Board Setup](docs/PROJECT_BOARD_SETUP.md)
 
 ## 🤝 Contributing
 

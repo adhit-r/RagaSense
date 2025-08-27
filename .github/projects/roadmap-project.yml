@@ -1,0 +1,250 @@
+name: "RagaSense Development Roadmap"
+description: "Track development progress for RagaSense features and improvements"
+visibility: "public"
+
+# Project columns for different development stages
+columns:
+  - name: "Backlog"
+    description: "Issues planned but not yet started"
+    
+  - name: "To Do"
+    description: "Issues ready to be worked on"
+    
+  - name: "In Progress"
+    description: "Issues currently being developed"
+    
+  - name: "Review"
+    description: "Issues ready for code review and testing"
+    
+  - name: "Testing"
+    description: "Issues being tested and validated"
+    
+  - name: "Done"
+    description: "Completed issues"
+
+# Workflow rules
+workflows:
+  - name: "Development Workflow"
+    rules:
+      - when: "issue.opened"
+        then: "add_to_column: Backlog"
+        
+      - when: "issue.labeled"
+        if: "label.name == 'ready'"
+        then: "add_to_column: To Do"
+        
+      - when: "issue.assigned"
+        then: "add_to_column: In Progress"
+        
+      - when: "pull_request.opened"
+        if: "linked_issue"
+        then: "add_to_column: Review"
+        
+      - when: "pull_request.merged"
+        if: "linked_issue"
+        then: "add_to_column: Testing"
+        
+      - when: "issue.closed"
+        then: "add_to_column: Done"
+
+# Issue templates to include
+include_issues:
+  - "enhancement"
+  - "bug"
+  - "documentation"
+  - "good first issue"
+  - "help wanted"
+
+# Labels for categorization
+labels:
+  - name: "phase-1"
+    color: "0e8a16"
+    description: "Phase 1: Foundation & Core Features"
+    
+  - name: "phase-2"
+    color: "fbca04"
+    description: "Phase 2: Advanced Features"
+    
+  - name: "phase-3"
+    color: "d93f0b"
+    description: "Phase 3: Enterprise & Scale"
+    
+  - name: "phase-4"
+    color: "5319e7"
+    description: "Phase 4: Innovation & Research"
+    
+  - name: "ml-model"
+    color: "1d76db"
+    description: "Machine Learning Model"
+    
+  - name: "frontend"
+    color: "c2e0c6"
+    description: "Frontend Development"
+    
+  - name: "backend"
+    color: "d4c5f9"
+    description: "Backend Development"
+    
+  - name: "database"
+    color: "fef2c0"
+    description: "Database & Authentication"
+    
+  - name: "ai-generation"
+    color: "bfdadc"
+    description: "AI Music Generation"
+    
+  - name: "social-features"
+    color: "f9d0c4"
+    description: "Social & Collaborative Features"
+    
+  - name: "analytics"
+    color: "c5def5"
+    description: "Analytics & Monitoring"
+    
+  - name: "performance"
+    color: "fef7c0"
+    description: "Performance & Optimization"
+    
+  - name: "research"
+    color: "d1ecf1"
+    description: "Research & Education"
+    
+  - name: "high-priority"
+    color: "d73a4a"
+    description: "High Priority - Must Have"
+    
+  - name: "medium-priority"
+    color: "fbca04"
+    description: "Medium Priority - Should Have"
+    
+  - name: "low-priority"
+    color: "0e8a16"
+    description: "Low Priority - Nice to Have"
+    
+  - name: "ready"
+    color: "0e8a16"
+    description: "Ready to be worked on"
+    
+  - name: "blocked"
+    color: "d73a4a"
+    description: "Blocked by other issues"
+    
+  - name: "in-progress"
+    color: "1d76db"
+    description: "Currently being worked on"
+    
+  - name: "needs-review"
+    color: "fbca04"
+    description: "Needs code review"
+    
+  - name: "testing"
+    color: "5319e7"
+    description: "Being tested"
+    
+  - name: "completed"
+    color: "0e8a16"
+    description: "Completed and deployed"
+
+# Milestones for tracking
+milestones:
+  - title: "Phase 1: Foundation & Core Features"
+    description: "Complete core ML model, frontend polish, and database integration"
+    due_on: "2024-03-31"
+    
+  - title: "Phase 2: Advanced Features"
+    description: "Implement AI music generation, social features, and advanced analytics"
+    due_on: "2024-06-30"
+    
+  - title: "Phase 3: Enterprise & Scale"
+    description: "Add enterprise features, performance optimization, and scalability"
+    due_on: "2024-09-30"
+    
+  - title: "Phase 4: Innovation & Research"
+    description: "Advanced AI features, research collaboration, and educational platform"
+    due_on: "2024-12-31"
+
+# Automation rules
+automation:
+  - name: "Auto-assign labels based on issue content"
+    rules:
+      - when: "issue.opened"
+        if: "title contains 'ML' or 'model' or 'training'"
+        then: "add_label: ml-model"
+        
+      - when: "issue.opened"
+        if: "title contains 'frontend' or 'UI' or 'mobile'"
+        then: "add_label: frontend"
+        
+      - when: "issue.opened"
+        if: "title contains 'backend' or 'API' or 'server'"
+        then: "add_label: backend"
+        
+      - when: "issue.opened"
+        if: "title contains 'database' or 'auth' or 'convex'"
+        then: "add_label: database"
+        
+      - when: "issue.opened"
+        if: "title contains 'generation' or 'compose' or 'music'"
+        then: "add_label: ai-generation"
+        
+      - when: "issue.opened"
+        if: "title contains 'social' or 'share' or 'community'"
+        then: "add_label: social-features"
+        
+      - when: "issue.opened"
+        if: "title contains 'analytics' or 'metrics' or 'dashboard'"
+        then: "add_label: analytics"
+        
+      - when: "issue.opened"
+        if: "title contains 'performance' or 'optimization' or 'scale'"
+        then: "add_label: performance"
+        
+      - when: "issue.opened"
+        if: "title contains 'research' or 'education' or 'academic'"
+        then: "add_label: research"
+
+# Project views
+views:
+  - name: "Phase 1 Overview"
+    query: "label:phase-1"
+    layout: "board"
+    
+  - name: "High Priority Issues"
+    query: "label:high-priority"
+    layout: "table"
+    
+  - name: "ML Model Development"
+    query: "label:ml-model"
+    layout: "board"
+    
+  - name: "Frontend Development"
+    query: "label:frontend"
+    layout: "board"
+    
+  - name: "Backend Development"
+    query: "label:backend"
+    layout: "board"
+    
+  - name: "In Progress"
+    query: "label:in-progress"
+    layout: "table"
+    
+  - name: "Needs Review"
+    query: "label:needs-review"
+    layout: "table"
+    
+  - name: "Testing"
+    query: "label:testing"
+    layout: "table"
+    
+  - name: "Completed"
+    query: "label:completed"
+    layout: "table"
+
+# Project settings
+settings:
+  enable_automation: true
+  enable_insights: true
+  enable_roadmap: true
+  enable_dependencies: true
+  enable_timeline: true
