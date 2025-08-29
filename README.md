@@ -299,6 +299,14 @@ firebase deploy --only hosting
 docker build -f deploy/Dockerfile -t ragasense-frontend .
 docker run -p 80:80 ragasense-frontend
 
+# Option 6: Automated Script (Easiest)
+./frontend/deploy.sh netlify    # Deploy to Netlify
+./frontend/deploy.sh vercel     # Deploy to Vercel
+./frontend/deploy.sh firebase   # Deploy to Firebase
+./frontend/deploy.sh github     # Deploy to GitHub Pages
+./frontend/deploy.sh docker     # Deploy with Docker
+./frontend/deploy.sh railway    # Deploy to Railway
+
 # Convex (already deployed)
 bun run convex:deploy
 ```
