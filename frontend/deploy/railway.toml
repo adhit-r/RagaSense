@@ -1,0 +1,34 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd frontend && bun install && bun run build:web"
+
+[deploy]
+startCommand = "cd frontend && bun run preview"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[deploy.envs]
+NODE_ENV = "production"
+PORT = "3000"
+
+[[services]]
+name = "ragasense-frontend"
+plan = "starter"
+region = "us-west1"
+
+[services.envs]
+NODE_ENV = "production"
+VITE_CONVEX_URL = "https://your-convex-deployment.convex.cloud"
+VITE_API_URL = "https://your-backend-api.com"
+
+[services.ports]
+- port = 3000
+  protocol = "http"
+
+[services.healthcheck]
+path = "/"
+timeout = 300
+interval = 30
+retries = 3

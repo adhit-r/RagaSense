@@ -279,14 +279,31 @@ cd frontend && bun run dev  # Frontend
 # Backend (deploy to your preferred service)
 # Heroku, Railway, DigitalOcean, etc.
 
-# Frontend
+# Frontend - Multiple deployment options available:
 cd frontend
 bun run build:web
-# Deploy dist/web folder
+
+# Option 1: Netlify (Recommended)
+netlify deploy --prod --dir=dist/web
+
+# Option 2: Vercel
+vercel --prod
+
+# Option 3: Firebase
+firebase deploy --only hosting
+
+# Option 4: GitHub Pages (automatic via GitHub Actions)
+# Just push to main branch
+
+# Option 5: Docker
+docker build -f deploy/Dockerfile -t ragasense-frontend .
+docker run -p 80:80 ragasense-frontend
 
 # Convex (already deployed)
 bun run convex:deploy
 ```
+
+**See [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) for detailed instructions.**
 
 ## 📚 Documentation
 
@@ -297,6 +314,7 @@ bun run convex:deploy
 - [Frontend Setup](frontend/README.md)
 - [Development Roadmap](docs/ROADMAP.md)
 - [Project Board Setup](docs/PROJECT_BOARD_SETUP.md)
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md)
 
 ## 🤝 Contributing
 

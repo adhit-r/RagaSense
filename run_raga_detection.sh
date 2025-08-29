@@ -45,3 +45,4 @@ echo ""
 
 # Start the FastAPI server
 python -m backend.main
+
