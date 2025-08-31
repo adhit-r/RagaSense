@@ -1,250 +1,261 @@
-# RagaSense Frontend - Lynx Framework
+# RagaSense Mobile App
 
-A modern, cross-platform frontend for RagaSense built with the Lynx framework, featuring Sazhaam-like UX and comprehensive Convex database integration.
+Cross-platform mobile application for AI-powered Carnatic raga detection and music generation, built with Flutter.
 
-## Features
+## 🚀 **Features**
 
-- **Cross-Platform**: Single codebase for Web, iOS, and Android
-- **Sazhaam-like UX**: Modern, intuitive user interface
-- **Real-time Database**: Full Convex integration with authentication
-- **Raga Detection**: Upload and analyze audio files via local FastAPI backend
-- **Music Generation**: AI-powered music creation
-- **User Management**: Complete user profiles and settings
-- **Analytics**: Comprehensive usage tracking
-- **File Management**: Audio file storage and organization
+### **Raga Detection**
+- **Live Recording**: Real-time audio recording and analysis
+- **File Upload**: Support for MP3, WAV, M4A, AAC files
+- **Multiple Models**: Choose from 4 detection methods
+- **Visual Feedback**: Processing indicators and results
+- **Confidence Scores**: Detailed prediction confidence
 
-## Technology Stack
+### **Music Generation**
+- **Raga Selection**: Choose from popular Carnatic ragas
+- **Style Options**: Carnatic, Hindustani, Fusion
+- **Duration Control**: 10-120 seconds of generated music
+- **Audio Playback**: Built-in audio player
+- **Download Support**: Save generated music locally
 
-- **Framework**: Lynx + ReactLynx
-- **Build Tool**: Rspeedy
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Database**: Convex (real-time, serverless)
-- **Authentication**: Convex Auth
-- **State Management**: Convex queries and mutations
-- **ML Backend**: Local FastAPI server
+### **Cross-Platform**
+- **Web**: Progressive Web App (PWA)
+- **iOS**: Native iOS app
+- **Android**: Native Android app
+- **Responsive Design**: Works on all screen sizes
 
-## Prerequisites
+## 🛠️ **Technology Stack**
 
-- Node.js 18 or later
-- Python 3.9 or later (for FastAPI backend)
-- Bun package manager
-- Lynx Explorer (for testing)
-- Convex account and project
+### **Framework**
+- **Flutter 3.16+** - Cross-platform UI framework
+- **Dart 3.2+** - Programming language
+- **Material 3** - Modern design system
 
-## Getting Started
+### **State Management**
+- **Riverpod** - State management and dependency injection
+- **Provider** - Legacy state management support
 
-### 1. Install Dependencies
+### **Audio & Media**
+- **record** - Audio recording
+- **audioplayers** - Audio playback
+- **file_picker** - File selection
+- **permission_handler** - Device permissions
 
-```bash
-cd frontend
-bun install
+### **Networking & API**
+- **http** - HTTP requests
+- **dio** - Advanced HTTP client
+- **retrofit** - API client generation
+
+### **UI & Design**
+- **Google Fonts** - Typography
+- **flutter_svg** - SVG support
+- **lottie** - Animations
+
+### **Storage & Database**
+- **shared_preferences** - Local storage
+- **sqflite** - SQLite database
+- **path_provider** - File system access
+
+## 📱 **Platform Support**
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| Web | ✅ Supported | PWA with audio recording |
+| iOS | ✅ Supported | Native audio recording |
+| Android | ✅ Supported | Native audio recording |
+| macOS | 🔄 Planned | Desktop support |
+| Windows | 🔄 Planned | Desktop support |
+| Linux | 🔄 Planned | Desktop support |
+
+## 🚀 **Quick Start**
+
+### **Prerequisites**
+- Flutter SDK 3.16+
+- Dart SDK 3.2+
+- Android Studio / Xcode (for mobile)
+- Chrome (for web)
+
+### **Installation**
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd ragasense_mobile
+   ```
+
+2. **Install dependencies**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Run the app**
+   ```bash
+   # For web
+   flutter run -d chrome
+   
+   # For iOS simulator
+   flutter run -d ios
+   
+   # For Android emulator
+   flutter run -d android
+   ```
+
+## 🏗️ **Project Structure**
+
+```
+lib/
+├── constants/
+│   ├── app_colors.dart      # Color definitions
+│   └── app_theme.dart       # Theme configuration
+├── models/
+│   ├── raga.dart            # Raga data model
+│   └── raga_detection_result.dart # Detection results
+├── screens/
+│   └── home_screen.dart     # Main app screen
+├── services/
+│   └── raga_detection_service.dart # API integration
+├── widgets/
+│   ├── raga_detection_widget.dart  # Detection UI
+│   └── music_generation_widget.dart # Generation UI
+└── main.dart                # App entry point
 ```
 
-### 2. Set up Convex
+## 🎨 **Design System**
 
-1. **Install Convex CLI**:
-   ```bash
-   bun add -g convex
-   ```
+### **Colors**
+- **Primary**: Blue gradient (professional)
+- **Success**: Green (positive feedback)
+- **Warning**: Orange (cautions)
+- **Error**: Red (errors)
+- **Gray**: Neutral grays (text, borders)
 
-2. **Login to Convex**:
-   ```bash
-   convex login
-   ```
+### **Typography**
+- **Font**: Inter (Google Fonts)
+- **Weights**: Regular, Medium, SemiBold, Bold
+- **Sizes**: 10px to 32px scale
 
-3. **Initialize Convex** (if not already done):
-   ```bash
-   convex dev --configure
-   ```
+### **Components**
+- **Cards**: Elevated containers with borders
+- **Buttons**: Primary, secondary, and text variants
+- **Inputs**: Filled text fields with validation
+- **Progress**: Loading indicators and sliders
 
-4. **Deploy your schema**:
-   ```bash
-   convex deploy
-   ```
+## 🔧 **Configuration**
 
-5. **Get your deployment URL** and add it to your environment variables.
+### **Backend Integration**
+The app connects to the FastAPI backend for raga detection:
 
-### 3. Environment Setup
-
-Copy the example environment file and configure it:
-
-```bash
-cp env.example .env.local
+```dart
+// Update this URL in services/raga_detection_service.dart
+static const String _baseUrl = 'http://localhost:8002';
 ```
 
-Edit `.env.local` with your configuration:
+### **Environment Variables**
+Create a `.env` file for configuration:
 
 ```env
-# Convex Configuration
-NEXT_PUBLIC_CONVEX_URL=your_convex_deployment_url_here
-
-# Backend API (Local FastAPI)
-NEXT_PUBLIC_API_URL=http://localhost:8000
+BACKEND_URL=http://localhost:8002
+API_KEY=your_api_key_here
 ```
 
-### 4. Start Backend (Required)
+## 📱 **Mobile Permissions**
 
-The frontend requires the local FastAPI backend to be running:
+### **iOS (Info.plist)**
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>This app needs microphone access to record audio for raga detection.</string>
+<key>NSDocumentsFolderUsageDescription</key>
+<string>This app needs access to documents to save generated music.</string>
+```
 
+### **Android (AndroidManifest.xml)**
+```xml
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
+
+## 🚀 **Deployment**
+
+### **Web Deployment**
 ```bash
-# From the project root
-python -m backend.main
+flutter build web
+# Deploy the build/web folder to your hosting service
 ```
 
-### 5. Start Frontend Development
-
+### **iOS App Store**
 ```bash
-bun run dev
+flutter build ios --release
+# Open ios/Runner.xcworkspace in Xcode
+# Archive and upload to App Store Connect
 ```
 
-### 6. Testing with Lynx Explorer
-
-1. Install Lynx Explorer from the [official guide](http://lynxjs.org/guide/start/quick-start.html)
-2. Scan the QR code or copy the bundle URL
-3. Test the app on your device
-
-## Available Scripts
-
-- `bun run dev` - Start development server
-- `bun run build` - Build for all platforms
-- `bun run build:web` - Build for web only
-- `bun run build:ios` - Build for iOS
-- `bun run build:android` - Build for Android
-- `bun run preview` - Preview the build
-- `bun run lint` - Run linting
-- `bun run type-check` - Run TypeScript checks
-- `bun run convex:dev` - Start Convex development server
-- `bun run convex:deploy` - Deploy Convex functions
-- `bun run convex:codegen` - Generate Convex types
-
-## Project Structure
-
-```
-frontend/
-├── convex/                 # Convex database and functions
-│   ├── schema.ts          # Database schema
-│   ├── functions/         # Convex functions
-│   │   ├── auth.ts        # Authentication
-│   │   ├── ragas.ts       # Raga management
-│   │   ├── ragaDetection.ts # Detection history
-│   │   ├── files.ts       # File management
-│   │   ├── musicGeneration.ts # Music generation
-│   │   └── analytics.ts   # Analytics tracking
-│   └── convex.json        # Convex configuration
-├── src/
-│   ├── components/        # ReactLynx components
-│   ├── hooks/            # Custom hooks for Convex
-│   ├── lib/              # Utilities and configurations
-│   ├── styles/           # Global styles
-│   └── types/            # TypeScript type definitions
-├── rspeedy.config.ts     # Lynx build configuration
-└── package.json          # Dependencies and scripts
-```
-
-## Convex Database Schema
-
-The application uses a comprehensive Convex schema with the following tables:
-
-- **users**: User profiles and authentication
-- **ragas**: Raga information and metadata
-- **ragaDetections**: Detection history and results
-- **files**: Audio file storage and management
-- **musicGenerations**: AI music generation requests
-- **userSettings**: User preferences and settings
-- **userFavorites**: User's favorite ragas
-- **analytics**: Usage analytics and tracking
-
-## Authentication
-
-The app uses Convex's built-in authentication system with support for:
-
-- Email/password authentication
-- OAuth providers (Google, GitHub, etc.)
-- User profile management
-- Settings and preferences
-
-## Key Features
-
-### Raga Detection
-- Upload audio files (WAV, MP3, OGG, FLAC, M4A)
-- Real-time raga detection via local FastAPI backend
-- Detection history and statistics stored in Convex
-- Export detection results
-
-### Music Generation
-- AI-powered music generation
-- Raga-specific composition
-- Generation history and management
-- Background processing support
-
-### User Management
-- Complete user profiles
-- Settings and preferences
-- Favorites and collections
-- Usage analytics
-
-### File Management
-- Audio file upload and storage
-- File organization and search
-- File statistics and analytics
-
-## Development Workflow
-
-1. **Database Changes**: Modify `convex/schema.ts` and run `convex deploy`
-2. **Function Development**: Edit functions in `convex/functions/`
-3. **Frontend Development**: Use ReactLynx components in `src/components/`
-4. **Backend Development**: Modify FastAPI backend in `backend/` directory
-5. **Testing**: Use Lynx Explorer for cross-platform testing
-
-## Deployment
-
-### Web Deployment
+### **Google Play Store**
 ```bash
-bun run build:web
-# Deploy the dist/web folder to your hosting provider
+flutter build appbundle --release
+# Upload the generated .aab file to Google Play Console
 ```
 
-### Mobile Deployment
+## 🧪 **Testing**
+
+### **Unit Tests**
 ```bash
-bun run build:ios    # For iOS
-bun run build:android # For Android
+flutter test
 ```
 
-### Convex Deployment
+### **Integration Tests**
 ```bash
-bun run convex:deploy
+flutter test integration_test/
 ```
 
-### Backend Deployment
+### **Widget Tests**
 ```bash
-# Deploy FastAPI backend to your preferred hosting service
-# (Heroku, Railway, DigitalOcean, etc.)
+flutter test test/widget_test.dart
 ```
 
-## Resources
+## 🔄 **Development Workflow**
 
-- [Lynx Documentation](http://lynxjs.org/)
-- [Convex Documentation](https://docs.convex.dev/)
-- [ReactLynx Guide](http://lynxjs.org/guide/react-lynx/)
-- [Rspeedy Build Tool](http://lynxjs.org/guide/build-tools/)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+1. **Feature Development**
+   - Create feature branch
+   - Implement UI components
+   - Add business logic
+   - Write tests
+   - Submit PR
 
-## Contributing
+2. **State Management**
+   - Use Riverpod for global state
+   - Local state with StatefulWidget
+   - Provider for simple state
+
+3. **API Integration**
+   - Create service classes
+   - Handle errors gracefully
+   - Add loading states
+   - Cache responses
+
+## 📊 **Performance**
+
+- **Bundle Size**: Optimized for mobile
+- **Loading Time**: Fast initial load
+- **Audio Processing**: Efficient audio handling
+- **Memory Usage**: Optimized for mobile devices
+
+## 🤝 **Contributing**
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test with Lynx Explorer
+3. Follow Flutter best practices
+4. Add tests for new features
 5. Submit a pull request
 
-## Support
+## 📄 **License**
 
-For issues and questions:
-- Check the [docs](docs/) folder
-- Create an issue on GitHub
-- Join our community discussions
+MIT License - see [LICENSE](LICENSE) for details.
+
+## 🎵 **About Carnatic Music**
+
+Carnatic music is a classical music tradition from South India, characterized by its complex melodic structures called "ragas" and rhythmic patterns called "talas". This application helps musicians and enthusiasts identify and understand these intricate musical patterns using AI.
 
 ---
 
-Built with ❤️ for Indian classical music enthusiasts
+**Built with ❤️ for the Carnatic music community**

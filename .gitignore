@@ -1,14 +1,19 @@
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# 🎵 RagaSense Project .gitignore
 
-# Python
+# =============================================================================
+# PYTHON
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# C extensions
+*.c
+
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -22,52 +27,240 @@ parts/
 sdist/
 var/
 wheels/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
-# Virtual environments
-venv/
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
 env/
+venv/
 ENV/
 env.bak/
 venv.bak/
+convex-python-env/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Spyder project settings
+.spyderproject
+.spyproject
 
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Rope project settings
+.ropeproject
 
-# Logs
-*.log
-logs/
+# mkdocs documentation
+/site
 
-# Environment variables
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# =============================================================================
+# NODE.JS / FRONTEND
+# =============================================================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
 .env
+.env.test
+.env.production
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
+# parcel-bundler cache
+.cache
+.parcel-cache
 
-# Music data (large files)
-ragasense_backend/Music-data/
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# =============================================================================
+# MACHINE LEARNING & DATA
+# =============================================================================
 
 # ML artifacts
 mlflow/
@@ -76,6 +269,35 @@ mlruns/
 *.joblib
 *.h5
 *.hdf5
+*.pth
+*.pt
+*.ckpt
+*.tar
+*.safetensors
+
+# Model checkpoints
+checkpoints/
+models/
+saved_models/
+*.model
+*.weights
+
+# Data files
+*.csv
+*.json
+*.xml
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Large datasets
+data/
+datasets/
+raw_data/
+processed_data/
+external_music_data/
+new_ml_data/
 
 # Audio files
 *.mp3
@@ -83,12 +305,376 @@ mlruns/
 *.flac
 *.ogg
 *.m4a
+*.aac
+*.m4b
+*.wma
+
+# Video files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+
+# Image files (if any)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.svg
+
+# =============================================================================
+# PROJECT SPECIFIC
+# =============================================================================
+
+# Archive folder (contains old files)
+archive/
+
+# Backend specific
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/ml/__pycache__/
+backend/models/__pycache__/
+backend/tests/__pycache__/
+
+# Frontend build artifacts
+frontend/dist/
+frontend/build/
+frontend/.next/
+frontend/.nuxt/
+frontend/.output/
+
+# Convex
+.convex/
+
+# Uploads directory
+uploads/
+
+# Local models
+local_models/
+
+# Carnatic raga classifier (cloned repo)
+carnatic-raga-classifier/
+
+# =============================================================================
+# IDE & EDITORS
+# =============================================================================
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# OPERATING SYSTEM
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# SECURITY & SENSITIVE DATA
+# =============================================================================
+
+# API Keys and credentials
+*api_key*
+*secret*
+*token*
+*password*
+*credential*
+*private*
+*hidden*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Configuration files with sensitive data
+config.json
+secrets.json
+credentials.json
+.env.*
+!.env.example
+
+# Database connection files
+db-details.py
+database_config.py
+connection.py
+
+# =============================================================================
+# TEMPORARY & CACHE FILES
+# =============================================================================
 
 # Temporary files
 *.tmp
 *.temp
 temp/
 tmp/
+.tmp/
+
+# Cache directories
+.cache/
+cache/
+__pycache__/
+
+# Logs
+*.log
+logs/
+log/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# =============================================================================
+# PACKAGE MANAGERS
+# =============================================================================
+
+# npm
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Python
+Pipfile.lock
+poetry.lock
+
+# =============================================================================
+# DEPLOYMENT & BUILD
+# =============================================================================
+
+# Build outputs
+build/
+dist/
+out/
+.next/
+.nuxt/
+.output/
+
+# Deployment
+.vercel
+.netlify
+.firebase/
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+docker-compose.yaml
+
+# =============================================================================
+# TESTING
+# =============================================================================
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+# Jest
+coverage/
+*.lcov
+
+# =============================================================================
+# DOCUMENTATION
+# =============================================================================
+
+# Generated documentation
+docs/_build/
+docs/build/
+site/
+
+# =============================================================================
+# MISC
+# =============================================================================
 
 # Seed output logs
 seed_output.log
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local environment files
+.env*.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# =============================================================================
+# RAGASENSE SPECIFIC
+# =============================================================================
+
+# Large music datasets and external data
+external_data/
+carnatic-raga-classifier/
+
+# Analysis and Documentation
+docs/analysis/
+docs/reports/
+*.analysis.md
+*.report.md
+PROJECT_ORGANIZATION_SUMMARY.md
+
+# ML model files
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
+*.tar
+*.safetensors
+
+# Audio processing cache
+audio_cache/
+feature_cache/
+
+# Model training artifacts
+training_logs/
+experiments/
+wandb/
+tensorboard_logs/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Convex specific
+.convex/
+convex/_generated/
+
+# Archive and old files
+archive/
+archived/
+unrelated/
+docs/archive/
+
+# Migration files
+migrations/
+alembic/
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+convex-python-env/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

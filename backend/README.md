@@ -1,118 +1,37 @@
-# Backend API (FastAPI)
+# Backend API
 
-This directory contains the FastAPI backend for the Raga Detector project. It provides REST endpoints for raga detection, analysis, search, and CRUD operations on raga-related entities.
+Clean FastAPI backend for RagaSense.
 
-## Features
-- Raga detection from audio (integrates with ML module in ../ml/)
-- Raga analysis and comparison
-- CRUD for artists, performances, audio samples, ragas, etc.
-- Database integration (SQLAlchemy, async)
+## Structure
 
-## How to Run
-
-1. **Install dependencies:**
-   ```sh
-   pip install -r ../requirements.txt
-   pip install -r ../requirements_ml.txt  # For ML endpoints
-   ```
-2. **Start the server:**
-   ```sh
-   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-   ```
-   (from the backend/ directory)
-3. **API docs:**
-   - Visit [http://localhost:8000/docs](http://localhost:8000/docs)
-
-## API Endpoints
-- `/api/raga-detect` — Raga detection from audio
-- `/api/audio-analysis` — Audio feature extraction
-- `/api/raga-compare` — Compare ragas
-- `/api/raga-analysis` — Detailed raga analysis
-- `/api/raga` — CRUD for ragas
-- `/api/artist` — CRUD for artists
-- `/api/performance` — CRUD for performances
-- `/api/audio-sample` — CRUD for audio samples
-
-## ML Integration
-- The backend imports the ML model from the top-level `ml/` directory.
-- See [../ml/README.md](../ml/README.md) for details on training and using the ML model.
-
-## Database
-- Uses SQLAlchemy (async) for database access.
-- Models are in `backend/models/`.
-
-## Development
-- All backend code is in this directory.
-- Update imports to use `backend.` and `ml.` as needed.
-
----
-
-# Database Overview
-
-## Table Row Counts (as of latest seed)
-
-- ragas: 5,893
-- artists: 1,274
-- audio_samples: 74
-- composers: 438
-- performances: 0
-- talas: 43
-- types: 100
-- songs: 10,672
-
-## Entity-Relationship Diagram
-
-```mermaid
-erDiagram
-    SONGS ||--o{ RAGAS : raga_id
-    SONGS ||--o{ COMPOSERS : composer_id
-    SONGS ||--o{ TYPES : type_id
-    SONGS ||--o{ TALAS : tala_id
-    SONGS ||--o{ AUDIO_SAMPLES : audio_sample_id
-    PERFORMANCES ||--o{ SONGS : song_id
-    PERFORMANCES ||--o{ ARTISTS : artist_id
-    RAGAS ||--o{ AUDIO_SAMPLES : raga_id
-    ARTISTS {
-        int id
-        string name
-    }
-    RAGAS {
-        int id
-        string name
-    }
-    SONGS {
-        int id
-        string title
-        int raga_id
-        int composer_id
-        int type_id
-        int tala_id
-        int audio_sample_id
-    }
-    COMPOSERS {
-        int id
-        string name
-    }
-    TYPES {
-        int id
-        string name
-    }
-    TALAS {
-        int id
-        string name
-    }
-    AUDIO_SAMPLES {
-        int id
-        string file_path
-        int raga_id
-    }
-    PERFORMANCES {
-        int id
-        int song_id
-        int artist_id
-    }
+```
+backend/
+├── api/                    # API routes
+│   ├── raga_detection.py  # Raga detection endpoints
+│   └── music_generation.py # Music generation endpoints
+├── core/                   # Core backend logic
+│   ├── config.py          # Configuration
+│   └── database.py        # Database connections
+├── schemas/                # Pydantic models
+│   └── models.py          # Request/Response models
+└── main.py                 # Main FastAPI application
 ```
 
----
+## Quick Start
 
-See the root [README.md](../README.md) for project structure and more details. 
+1. **Install dependencies**: `pip install fastapi uvicorn`
+2. **Start server**: `python main.py`
+3. **API docs**: http://localhost:8002/docs
+
+## Endpoints
+
+- `POST /api/detect-raga` - Detect raga from audio
+- `POST /api/generate-music` - Generate music in a raga
+- `GET /health` - Health check
+
+## ML Integration
+
+The backend connects to ML services in the `ml/` directory for:
+- Raga detection using multiple models
+- Audio processing and feature extraction
+- Model inference and predictions 
