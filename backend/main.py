@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Real Trained Backend for RagaSense
-Uses the actual trained model with proper checkpoint loading
+Real Trained Backend for RagaSense with Convex Integration
+Uses the actual trained model with proper checkpoint loading and Convex database
 """
 
 import os
@@ -10,23 +10,29 @@ import json
 import torch
 import torchaudio
 import numpy as np
-from typing import Dict, List, Union
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from typing import Dict, List, Union, Optional
+from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 import tempfile
 import io
+import time
+from datetime import datetime
 
 # Add the cloned repository to Python path
 sys.path.append('carnatic-raga-classifier')
+
+# Import Convex client and config
+from convex_config import convex_client
+from config import config
 
 app = FastAPI(title="Real Trained Backend", version="1.0.0")
 
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=config.CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,6 +43,25 @@ class RagaPrediction(BaseModel):
     confidence: float
     top_predictions: List[Dict[str, Union[str, float]]]
     model_used: str
+
+class FileUploadResponse(BaseModel):
+    file_id: str
+    filename: str
+    size: int
+    uploaded_at: str
+    message: str
+
+class DetectionHistoryResponse(BaseModel):
+    file_id: str
+    filename: str
+    raga: str
+    confidence: float
+    detected_at: str
+    model_used: str
+
+class UserAuth(BaseModel):
+    user_id: str
+    token: str
 
 # Load raga metadata from the cloned repository
 def load_raga_metadata():
@@ -404,5 +429,172 @@ async def list_ragas():
         "count": len(classifier.raga_list)
     }
 
+# Authentication dependency
+async def get_current_user(authorization: Optional[str] = Header(None)) -> str:
+    """Extract user ID from authorization header"""
+    if not authorization:
+        # For now, use a default user ID (in production, validate JWT token)
+        return "default_user"
+    
+    # In production, decode JWT token and extract user_id
+    # For now, just return the token as user_id
+    return authorization.replace("Bearer ", "")
+
+@app.post("/api/upload-file")
+async def upload_file(
+    file: UploadFile = File(...),
+    current_user: str = Depends(get_current_user)
+):
+    """Upload audio file and store in Convex"""
+    try:
+        # Read file data
+        file_data = await file.read()
+        
+        # Upload to Convex
+        upload_result = convex_client.upload_file(
+            file_data=file_data,
+            filename=file.filename,
+            content_type=file.content_type or "audio/mpeg"
+        )
+        
+        if "error" in upload_result:
+            raise HTTPException(status_code=500, detail=upload_result["error"])
+        
+        return FileUploadResponse(
+            file_id=upload_result["fileId"],
+            filename=upload_result["filename"],
+            size=upload_result["size"],
+            uploaded_at=upload_result["uploadedAt"],
+            message="File uploaded successfully"
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+
+@app.post("/api/detect-raga-with-tracking")
+async def detect_raga_with_tracking(
+    file: UploadFile = File(...),
+    current_user: str = Depends(get_current_user)
+):
+    """Detect raga using existing Convex classifyAudio function"""
+    try:
+        start_time = time.time()
+        
+        # First upload file to Convex
+        file_data = await file.read()
+        upload_result = convex_client.upload_file(
+            file_data=file_data,
+            filename=file.filename,
+            content_type=file.content_type or "audio/mpeg",
+            user_id=current_user
+        )
+        
+        if "error" in upload_result:
+            raise HTTPException(status_code=500, detail=upload_result["error"])
+        
+        # Use existing Convex classifyAudio function
+        classification_result = convex_client.classify_audio(
+            file_id=upload_result["fileId"],
+            audio_data=file_data,
+            user_id=current_user
+        )
+        
+        if "error" in classification_result:
+            print(f"Warning: Convex classification failed: {classification_result['error']}")
+            # Fallback to local model
+            global classifier
+            if classifier is not None:
+                top_predictions = classifier.predict(file, top_k=5)
+                if top_predictions:
+                    classification_result = {
+                        "raga": top_predictions[0]["raga"],
+                        "confidence": top_predictions[0]["confidence"],
+                        "topPredictions": top_predictions,
+                        "modelUsed": "local_fallback"
+                    }
+        
+        processing_time = time.time() - start_time
+        
+        return {
+            "success": True,
+            "file_id": upload_result["fileId"],
+            "classification": classification_result,
+            "processing_time": processing_time,
+            "message": "Raga detection completed using Convex functions"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Detection failed: {str(e)}")
+
+@app.get("/api/user/files")
+async def get_user_files(current_user: str = Depends(get_current_user)):
+    """Get files uploaded by the current user"""
+    try:
+        files = convex_client.get_user_files(current_user)
+        return {"files": files, "count": len(files)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get files: {str(e)}")
+
+@app.get("/api/user/detection-history")
+async def get_detection_history(
+    limit: int = 50,
+    current_user: str = Depends(get_current_user)
+):
+    """Get detection history for the current user using existing Convex function"""
+    try:
+        history = convex_client.get_classification_history(current_user, limit)
+        return {"classifications": history, "count": len(history)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get history: {str(e)}")
+
+@app.get("/api/search-ragas")
+async def search_ragas(
+    search_term: str,
+    tradition: Optional[str] = None
+):
+    """Search ragas using existing Convex searchRagas function"""
+    try:
+        ragas = convex_client.search_ragas(search_term, tradition)
+        return {"ragas": ragas, "count": len(ragas)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
+
+@app.get("/api/ragas/all")
+async def get_all_ragas(tradition: Optional[str] = None):
+    """Get all ragas using existing Convex getAllRagas function"""
+    try:
+        ragas = convex_client.get_all_ragas(tradition)
+        return {"ragas": ragas, "count": len(ragas)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get ragas: {str(e)}")
+
+@app.get("/api/files/{file_id}")
+async def get_file_details(
+    file_id: str,
+    current_user: str = Depends(get_current_user)
+):
+    """Get file details using existing Convex getFileById function"""
+    try:
+        file_details = convex_client.get_file_by_id(file_id)
+        if "error" in file_details:
+            raise HTTPException(status_code=404, detail="File not found")
+        return file_details
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get file: {str(e)}")
+
+@app.delete("/api/files/{file_id}")
+async def delete_file(
+    file_id: str,
+    current_user: str = Depends(get_current_user)
+):
+    """Delete file using existing Convex deleteFile function"""
+    try:
+        result = convex_client.delete_file(file_id, current_user)
+        if "error" in result:
+            raise HTTPException(status_code=500, detail=result["error"])
+        return {"message": "File deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete file: {str(e)}")
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8002)
+    uvicorn.run(app, host=config.HOST, port=config.PORT)

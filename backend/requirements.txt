@@ -1,0 +1,30 @@
+# Backend Dependencies for RagaSense
+# =================================
+
+# FastAPI and web framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+
+# PyTorch and audio processing
+torch>=2.0.0
+torchaudio>=2.0.0
+numpy>=1.24.0
+
+# File handling and utilities
+python-multipart>=0.0.6
+
+# CORS and middleware
+fastapi-cors>=0.0.6
+
+# HTTP requests
+requests>=2.31.0
+
+# Convex integration
+convex-api>=0.0.3
+python-dotenv>=1.0.0
+
+# Authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6

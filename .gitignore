@@ -358,6 +358,10 @@ local_models/
 
 # Carnatic raga classifier (cloned repo)
 carnatic-raga-classifier/
+#carnatic hindustani datasets
+
+carnatic-hindustani-dataset
+carnatic-hindustani-datasets/
 
 # =============================================================================
 # IDE & EDITORS

@@ -1,62 +1,106 @@
-# RagaSense Mobile App
+# RagaSense Flutter Frontend
 
-Cross-platform mobile application for AI-powered Carnatic raga detection and music generation, built with Flutter.
+A cross-platform Flutter application for AI-powered Indian classical music raga detection and generation.
 
-## 🚀 **Features**
+## Features
 
-### **Raga Detection**
-- **Live Recording**: Real-time audio recording and analysis
-- **File Upload**: Support for MP3, WAV, M4A, AAC files
-- **Multiple Models**: Choose from 4 detection methods
-- **Visual Feedback**: Processing indicators and results
-- **Confidence Scores**: Detailed prediction confidence
+- **Raga Detection**: Upload audio files or record live to detect ragas
+- **Music Generation**: Generate music in different ragas and styles
+- **Cross-Platform**: Works on Web, iOS, and Android
+- **Professional UI**: Clean, modern design with Material 3
+- **Real-time Status**: Monitor backend and ML model status
 
-### **Music Generation**
-- **Raga Selection**: Choose from popular Carnatic ragas
-- **Style Options**: Carnatic, Hindustani, Fusion
-- **Duration Control**: 10-120 seconds of generated music
-- **Audio Playback**: Built-in audio player
-- **Download Support**: Save generated music locally
+## Project Structure
 
-### **Cross-Platform**
-- **Web**: Progressive Web App (PWA)
-- **iOS**: Native iOS app
-- **Android**: Native Android app
-- **Responsive Design**: Works on all screen sizes
+```
+lib/
+├── main.dart                 # App entry point
+├── models/                   # Data models
+│   └── raga_model.dart      # Raga and prediction models
+├── providers/                # State management (Riverpod)
+│   └── app_providers.dart   # All app providers
+├── screens/                  # App screens
+│   ├── home_screen.dart     # Main raga detection screen
+│   └── music_generation_screen.dart
+├── services/                 # API and external services
+│   └── api_service.dart     # Backend API communication
+├── theme/                    # App theming
+│   └── app_theme.dart       # Light/dark theme configuration
+└── widgets/                  # Reusable UI components
+    ├── app_drawer.dart      # Navigation drawer
+    ├── audio_recorder_widget.dart
+    ├── raga_result_widget.dart
+    └── status_indicator_widget.dart
+```
 
-## 🛠️ **Technology Stack**
+## Getting Started
 
-### **Framework**
-- **Flutter 3.16+** - Cross-platform UI framework
-- **Dart 3.2+** - Programming language
-- **Material 3** - Modern design system
+### Prerequisites
 
-### **State Management**
-- **Riverpod** - State management and dependency injection
-- **Provider** - Legacy state management support
+- Flutter SDK 3.16+
+- Dart 3.2+
+- Backend server running on `http://localhost:8002`
 
-### **Audio & Media**
-- **record** - Audio recording
-- **audioplayers** - Audio playback
-- **file_picker** - File selection
-- **permission_handler** - Device permissions
+### Installation
 
-### **Networking & API**
-- **http** - HTTP requests
-- **dio** - Advanced HTTP client
-- **retrofit** - API client generation
+1. **Install Dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-### **UI & Design**
-- **Google Fonts** - Typography
-- **flutter_svg** - SVG support
-- **lottie** - Animations
+2. **Run the App**
+   ```bash
+   # For web
+   flutter run -d chrome
+   
+   # For iOS
+   flutter run -d ios
+   
+   # For Android
+   flutter run -d android
+   ```
 
-### **Storage & Database**
-- **shared_preferences** - Local storage
-- **sqflite** - SQLite database
-- **path_provider** - File system access
+### Development
 
-## 📱 **Platform Support**
+The app uses:
+- **Riverpod** for state management
+- **Dio** for HTTP requests
+- **Record** for audio recording
+- **File Picker** for file selection
+- **Google Fonts** for typography
+
+## Key Components
+
+### State Management
+- `RagaDetectionProvider`: Manages raga detection state
+- `AudioRecordingProvider`: Handles audio recording
+- `MusicGenerationProvider`: Manages music generation
+- `BackendHealthProvider`: Monitors backend status
+
+### API Integration
+- Health checks
+- Raga detection
+- Music generation
+- Model status monitoring
+
+### UI Features
+- Professional B2C design
+- Dark/light theme support
+- Responsive layout
+- Loading states and error handling
+- Audio recording with visual feedback
+
+## Backend Integration
+
+The app communicates with the FastAPI backend at `http://localhost:8002`:
+
+- `GET /health` - Backend health check
+- `GET /api/models/status` - Model status
+- `POST /api/detect-raga` - Raga detection
+- `GET /api/ragas` - List supported ragas
+- `POST /api/generate-music` - Music generation
+
+## Platform Support
 
 | Platform | Status | Notes |
 |----------|--------|-------|
@@ -67,195 +111,47 @@ Cross-platform mobile application for AI-powered Carnatic raga detection and mus
 | Windows | 🔄 Planned | Desktop support |
 | Linux | 🔄 Planned | Desktop support |
 
-## 🚀 **Quick Start**
+## Troubleshooting
 
-### **Prerequisites**
-- Flutter SDK 3.16+
-- Dart SDK 3.2+
-- Android Studio / Xcode (for mobile)
-- Chrome (for web)
+### Common Issues
 
-### **Installation**
+1. **Backend Connection Failed**
+   - Ensure backend is running on port 8002
+   - Check network connectivity
+   - Verify CORS settings
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd ragasense_mobile
-   ```
+2. **Audio Recording Issues**
+   - Grant microphone permissions
+   - Check platform-specific audio settings
+   - Ensure HTTPS for web recording
 
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
+3. **File Upload Problems**
+   - Verify file format (MP3, WAV, M4A, AAC)
+   - Check file size limits
+   - Ensure proper file permissions
 
-3. **Run the app**
-   ```bash
-   # For web
-   flutter run -d chrome
-   
-   # For iOS simulator
-   flutter run -d ios
-   
-   # For Android emulator
-   flutter run -d android
-   ```
+### Debug Mode
 
-## 🏗️ **Project Structure**
-
-```
-lib/
-├── constants/
-│   ├── app_colors.dart      # Color definitions
-│   └── app_theme.dart       # Theme configuration
-├── models/
-│   ├── raga.dart            # Raga data model
-│   └── raga_detection_result.dart # Detection results
-├── screens/
-│   └── home_screen.dart     # Main app screen
-├── services/
-│   └── raga_detection_service.dart # API integration
-├── widgets/
-│   ├── raga_detection_widget.dart  # Detection UI
-│   └── music_generation_widget.dart # Generation UI
-└── main.dart                # App entry point
-```
-
-## 🎨 **Design System**
-
-### **Colors**
-- **Primary**: Blue gradient (professional)
-- **Success**: Green (positive feedback)
-- **Warning**: Orange (cautions)
-- **Error**: Red (errors)
-- **Gray**: Neutral grays (text, borders)
-
-### **Typography**
-- **Font**: Inter (Google Fonts)
-- **Weights**: Regular, Medium, SemiBold, Bold
-- **Sizes**: 10px to 32px scale
-
-### **Components**
-- **Cards**: Elevated containers with borders
-- **Buttons**: Primary, secondary, and text variants
-- **Inputs**: Filled text fields with validation
-- **Progress**: Loading indicators and sliders
-
-## 🔧 **Configuration**
-
-### **Backend Integration**
-The app connects to the FastAPI backend for raga detection:
-
+Enable debug logging:
 ```dart
-// Update this URL in services/raga_detection_service.dart
-static const String _baseUrl = 'http://localhost:8002';
+// In main.dart
+void main() {
+  runApp(
+    ProviderScope(
+      child: RagaSenseApp(),
+    ),
+  );
+}
 ```
 
-### **Environment Variables**
-Create a `.env` file for configuration:
+## Contributing
 
-```env
-BACKEND_URL=http://localhost:8002
-API_KEY=your_api_key_here
-```
+1. Follow Flutter best practices
+2. Use proper state management with Riverpod
+3. Maintain consistent theming
+4. Add proper error handling
+5. Test on multiple platforms
 
-## 📱 **Mobile Permissions**
+## License
 
-### **iOS (Info.plist)**
-```xml
-<key>NSMicrophoneUsageDescription</key>
-<string>This app needs microphone access to record audio for raga detection.</string>
-<key>NSDocumentsFolderUsageDescription</key>
-<string>This app needs access to documents to save generated music.</string>
-```
-
-### **Android (AndroidManifest.xml)**
-```xml
-<uses-permission android:name="android.permission.RECORD_AUDIO" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-```
-
-## 🚀 **Deployment**
-
-### **Web Deployment**
-```bash
-flutter build web
-# Deploy the build/web folder to your hosting service
-```
-
-### **iOS App Store**
-```bash
-flutter build ios --release
-# Open ios/Runner.xcworkspace in Xcode
-# Archive and upload to App Store Connect
-```
-
-### **Google Play Store**
-```bash
-flutter build appbundle --release
-# Upload the generated .aab file to Google Play Console
-```
-
-## 🧪 **Testing**
-
-### **Unit Tests**
-```bash
-flutter test
-```
-
-### **Integration Tests**
-```bash
-flutter test integration_test/
-```
-
-### **Widget Tests**
-```bash
-flutter test test/widget_test.dart
-```
-
-## 🔄 **Development Workflow**
-
-1. **Feature Development**
-   - Create feature branch
-   - Implement UI components
-   - Add business logic
-   - Write tests
-   - Submit PR
-
-2. **State Management**
-   - Use Riverpod for global state
-   - Local state with StatefulWidget
-   - Provider for simple state
-
-3. **API Integration**
-   - Create service classes
-   - Handle errors gracefully
-   - Add loading states
-   - Cache responses
-
-## 📊 **Performance**
-
-- **Bundle Size**: Optimized for mobile
-- **Loading Time**: Fast initial load
-- **Audio Processing**: Efficient audio handling
-- **Memory Usage**: Optimized for mobile devices
-
-## 🤝 **Contributing**
-
-1. Fork the repository
-2. Create a feature branch
-3. Follow Flutter best practices
-4. Add tests for new features
-5. Submit a pull request
-
-## 📄 **License**
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## 🎵 **About Carnatic Music**
-
-Carnatic music is a classical music tradition from South India, characterized by its complex melodic structures called "ragas" and rhythmic patterns called "talas". This application helps musicians and enthusiasts identify and understand these intricate musical patterns using AI.
-
----
-
-**Built with ❤️ for the Carnatic music community**
+MIT License - see [LICENSE](../LICENSE) for details.
