@@ -1,0 +1,16 @@
+[Unit]
+Description=YouTube Raga Processing Service
+After=network.target
+
+[Service]
+Type=simple
+User=adhi
+WorkingDirectory=/Users/adhi/axonome/RagaSense/ml
+ExecStart=/Users/adhi/axonome/RagaSense/raga_env/bin/python run_youtube_background.py --batch-size 20 --max-videos 100
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

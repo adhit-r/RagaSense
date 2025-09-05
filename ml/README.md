@@ -1,159 +1,126 @@
 # RagaSense ML Workspace
+## 🤖 Machine Learning Models and Training
 
-## 🎵 **Machine Learning Models & Training**
+This directory contains all machine learning related files for the RagaSense project, organized for clarity and maintainability.
 
-This directory contains the complete ML pipeline for RagaSense, including enhanced training, tradition classification, and production inference.
+## 📁 Directory Structure
 
----
-
-## 📁 **Directory Structure**
-
-### **`enhanced_models/`** - Core ML Models
-- **`enhanced_raga_model.pkl`** - Main raga classification model (106 features)
-- **`enhanced_scaler.pkl`** - Feature scaling for model input
-- **`enhanced_label_encoder.pkl`** - Label encoding for raga classes
-- **`enhanced_feature_names.json`** - Names of all 106 extracted features
-- **`training_results.json`** - Training performance metrics
-- **`TRAINING_REPORT.md`** - Comprehensive training analysis
-
-### **`tradition_classification/`** - Tradition Classifiers
-- **`tradition_classifier.pkl`** - Carnatic vs Hindustani classifier
-- **`tradition_scaler.pkl`** - Feature scaling for tradition features
-- **`tradition_label_encoder.pkl`** - Label encoding for traditions
-- **`tradition_feature_names.json`** - 21 cultural feature names
-- **`tradition_training_results.json`** - Tradition classification metrics
-- **`TRADITION_CLASSIFICATION_REPORT.md`** - Cultural validation report
-
-### **`evaluation/`** - Testing & Validation Scripts
-- **`test_raga_detection.py`** - Core raga detection testing
-- **`test_huggingface_api.py`** - Hugging Face model comparison
-- **`test_our_model.py`** - Local model validation
-- **`test_system.py`** - End-to-end system testing
-
-### **`inference/`** - Production Inference Services
-- **`services/`** - Production ML inference endpoints
-
----
-
-## 🚀 **Model Performance**
-
-### **Enhanced Training Pipeline**
-- **Features**: 106 advanced audio features (8x improvement)
-- **Accuracy**: 100% on 37 real Carnatic audio samples
-- **Algorithms**: RandomForest, Neural Network
-- **Cross-validation**: 5-fold CV with minimal variance
-
-### **Tradition Classification**
-- **Features**: 21 cultural features for tradition distinction
-- **Accuracy**: 100% on synthetic dataset
-- **Cultural Features**: Gamaka, Meend, Shruti, Performance patterns
-- **Validation**: Expert-designed cultural feature engineering
-
----
-
-## 🎯 **Usage Examples**
-
-### **Load Enhanced Model**
-```python
-import joblib
-import pickle
-
-# Load the enhanced raga classification model
-with open('ml/enhanced_models/enhanced_raga_model.pkl', 'rb') as f:
-    model = pickle.load(f)
-
-# Load preprocessing objects
-scaler = joblib.load('ml/enhanced_models/enhanced_scaler.pkl')
-label_encoder = joblib.load('ml/enhanced_models/enhanced_label_encoder.pkl')
+```
+ml/
+├── training/           # Current training scripts
+│   └── optimized_working_mve_v1.2.py  # Current optimized training with MLOps
+├── scripts/            # Utility scripts (current versions)
+├── models/             # Saved models and checkpoints
+├── results/            # Training results and outputs
+├── data/               # Dataset utilities and processing
+├── evaluation/         # Model evaluation scripts
+├── requirements_v1.2.txt
+├── MLOPS_INTEGRATION_GUIDE_v1.2.md
+├── start_mlflow_training.sh
+└── README.md
 ```
 
-### **Load Tradition Classifier**
-```python
-# Load tradition classification model
-with open('ml/tradition_classification/tradition_classifier.pkl', 'rb') as f:
-    tradition_model = pickle.load(f)
+## 🚀 Quick Start
 
-# Load tradition preprocessing
-tradition_scaler = joblib.load('ml/tradition_classification/tradition_scaler.pkl')
-```
-
----
-
-## 🔧 **Training Scripts**
-
-### **Enhanced Training Pipeline**
+### 1. MLflow-Enhanced Training (Recommended)
 ```bash
-# Run enhanced training with 106 features
-python scripts/enhanced_training_pipeline.py
+# Start MLflow training with comprehensive logging
+./ml/start_mlflow_training.sh
+
+# View results in MLflow UI
+mlflow ui --backend-store-uri ./mlruns
 ```
 
-### **Tradition Classification**
+### 2. Archived Model Training
 ```bash
-# Train tradition classifier (Carnatic vs Hindustani)
-python scripts/tradition_classification_system.py
+# Previous versions available in archive/
+# See archive/ARCHIVE_INDEX.md for complete list
 ```
 
----
+## 📊 Model Comparison
 
-## 📊 **Feature Engineering**
+| Model | Version | Accuracy | Training Time | Use Case | Status |
+|-------|---------|----------|---------------|----------|--------|
+| Optimized Working MVE | v1.2 | 87-90% | 2-3 hours | Production+ | **Current** |
+| Optimized MVE | v1.1 | 87-90% | 2-3 hours | Production | Archived |
+| Working MVE | v1.0 | 85% | 2-3 hours | Baseline | Archived |
+| Cutting-Edge | v2.0 | 90-92% | 4-6 hours | Research | Archived |
+| Ultra-Advanced | v2.1 | 92-95% | 6-8 hours | Research+ | Archived |
 
-### **Enhanced Features (106 total)**
-- **MFCC**: 26 features (13 mean + 13 std)
-- **Spectral**: 6 features (centroid, rolloff, bandwidth)
-- **Chroma**: 24 features (12 mean + 12 std)
-- **Tonnetz**: 6 features
-- **Rhythm**: 1 feature (tempo)
-- **Energy**: 4 features (ZCR, RMS)
-- **Contrast**: 12 features (6 mean + 6 std)
-- **Mel**: 20 features (10 mean + 10 std)
-- **Harmonic**: 3 features (harmonic, percussive, total energy)
-- **Additional**: 4 features (flatness, rolloff)
+## 🔬 MLflow Features
 
-### **Cultural Features (21 total)**
-- **Ornamentation**: Gamaka vs Meend patterns
-- **Microtonal**: Shruti system complexity
-- **Rhythmic**: Tala vs Taal differences
-- **Melodic**: Raga progression patterns
-- **Timbre**: Instrumental characteristics
-- **Performance**: Alap vs Alapana structure
+- **Complete experiment tracking** with hyperparameters and metrics
+- **Model versioning and management** for production deployment
+- **Real-time monitoring** of training progress
+- **Visualization and analysis** tools for model performance
+- **Production deployment** capabilities
+- **Model comparison** and selection tools
 
----
+## 📈 Expected Results
 
-## 🌟 **Next Steps**
+- **Accuracy**: 87-90% (vs 85% original)
+- **Training Time**: 2-3 hours (vs 3-5 hours)
+- **Complete tracking**: All metrics, parameters, and artifacts
+- **Model versioning**: Automatic registration and management
+- **Visualizations**: Training curves, confusion matrices, performance plots
 
-### **Phase 2: Advanced Features**
-1. **Real Dataset Integration** - Test on actual Carnatic/Hindustani recordings
-2. **Parent Scale Classification** - Melakarta vs Thaat classification
-3. **Cultural Expert Validation** - Expert review and feedback
+## 🛠️ Requirements
 
-### **Phase 3: Production Deployment**
-1. **Production ML Pipeline** - Deploy models to backend
-2. **API Integration** - Connect with FastAPI endpoints
-3. **Performance Optimization** - Real-time inference optimization
-
----
-
-## 📝 **Requirements**
-
-### **Core Dependencies**
+### Optimized Training (Current v1.2)
 ```bash
-pip install -r ml/requirements_enhanced_training.txt
+pip install -r ml/requirements_v1.2.txt
 ```
 
-### **Key Libraries**
-- **scikit-learn**: ML algorithms and preprocessing
-- **librosa**: Audio feature extraction
-- **numpy/pandas**: Data manipulation
-- **joblib**: Model persistence
+## 📚 Documentation
+
+- **MLOPS_INTEGRATION_GUIDE_v1.2.md** - Complete MLOps setup and usage
+- **archive/ARCHIVE_INDEX.md** - Complete archive of all versions
+- **archive/ml_docs/** - All previous documentation versions
+- **archive/ml_models/** - All previous model versions
+
+## 🎯 Training Targets
+
+- **Dataset**: 1,402 unique ragas (603 Carnatic + 799 Hindustani)
+- **Audio Files**: 74+ high-quality recordings
+- **Training Time**: 2-5 hours on Mac GPU
+- **Target Accuracy**: 87-90%
+- **Model Size**: <50MB for mobile deployment
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **MLflow UI Not Starting**
+   ```bash
+   mlflow ui --backend-store-uri ./mlruns --port 5001
+   ```
+
+2. **Model Loading Issues**
+   ```bash
+   ls -la ./mlruns/0/[run_id]/artifacts/
+   ```
+
+3. **Permission Issues**
+   ```bash
+   chmod -R 755 ./mlruns
+   ```
+
+## 🎉 Success Metrics
+
+- ✅ **Complete experiment tracking** with MLflow
+- ✅ **Model versioning** and management
+- ✅ **Real-time monitoring** of training progress
+- ✅ **Rich visualizations** and analysis
+- ✅ **Production deployment** ready
+- ✅ **Comprehensive documentation**
+
+## 🚀 Next Steps
+
+1. **Start Training**: `./ml/start_mlflow_training.sh`
+2. **View Results**: `mlflow ui --backend-store-uri ./mlruns`
+3. **Deploy Model**: Use MLflow model serving
+4. **Scale Training**: Use Lightning AI for cloud GPU training
 
 ---
 
-## 🎉 **Current Status**
-
-**Phase 1 Complete**: Foundation established with enhanced training pipeline and tradition classification system.
-
-**Ready for Phase 2**: Parent scale classification and real dataset integration.
-
----
-
-*Last Updated: September 3, 2024*
+**Ready to train with MLflow!** 🚀

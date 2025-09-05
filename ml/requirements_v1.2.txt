@@ -1,0 +1,40 @@
+# MLflow Integration Requirements for RagaSense
+# =============================================
+
+# Core ML Libraries
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# MLflow and Experiment Tracking
+mlflow>=2.8.0
+mlflow[extras]>=2.8.0
+
+# Audio Processing
+librosa>=0.10.0
+soundfile>=0.12.0
+audioread>=3.0.0
+
+# Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# System Monitoring
+psutil>=5.9.0
+
+# Additional Dependencies
+Pillow>=10.0.0
+opencv-python>=4.8.0
+tqdm>=4.65.0
+
+# Optional: Advanced MLflow features
+# mlflow[databricks]>=2.8.0  # For Databricks integration
+# mlflow[azure]>=2.8.0       # For Azure integration
+# mlflow[aws]>=2.8.0         # For AWS integration

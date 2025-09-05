@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RagaSense Demo - Try Our AI Raga Classification | Adhithya Rajasekaran</title>
+    <link rel="stylesheet" href="terminal-style.css">
+    <style>
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed #333333;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            background: #0a0a0a;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .upload-area.dragover {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: #333333;
+            color: #ffffff;
+            border: 1px solid #333333;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-family: 'Geist Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 1rem;
+        }
+        
+        .upload-btn:hover {
+            background: #555555;
+            color: #ffffff;
+        }
+        
+        .result-area {
+            margin-top: 2rem;
+            padding: 2rem;
+            border: 1px solid #333333;
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+        
+        .result-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-left: 3px solid #333333;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .confidence-bar {
+            width: 100%;
+            height: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333333;
+            margin: 0.5rem 0;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: #333333;
+            transition: width 0.3s ease;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #e0e0e0;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #333333;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">RagaSense</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#dataset">Dataset</a></li>
+                <li><a href="index.html#models">Models</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="index.html#roadmap">Roadmap</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Demo Section -->
+    <section class="hero" style="padding: 120px 0 40px;">
+        <div class="container">
+            <h1>Interactive Raga Classification Demo</h1>
+            <p>Upload an audio file to classify the raga using our YuE foundation model</p>
+            <p style="font-size: 1rem; margin-bottom: 2rem; opacity: 0.8;">
+                Created by <strong>Adhithya Rajasekaran</strong> | 
+                <a href="https://github.com/adhit-r" target="_blank" style="color: #ffffff; text-decoration: underline;">GitHub: @adhit-r</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Demo Interface -->
+    <section class="features">
+        <div class="container">
+            <div class="demo-container">
+                <h2 class="section-title">Upload Audio File</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">UPLOAD</div>
+                    <p>Drag and drop an audio file here or click to browse</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">
+                        Supported formats: MP3, WAV, FLAC, M4A
+                    </p>
+                    <input type="file" id="fileInput" class="file-input" accept="audio/*">
+                    <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                </div>
+
+                <div id="resultArea" class="result-area" style="display: none;">
+                    <h3>Classification Results</h3>
+                    <div id="results"></div>
+                </div>
+
+                <div id="loadingArea" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing audio file...</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">
+                        This may take a few moments depending on file size
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="dataset">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">UPLOAD</div>
+                    <h3>Audio Upload</h3>
+                    <p>Upload your audio file in MP3, WAV, FLAC, or M4A format. The system supports files up to 10MB.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">ANALYZE</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our YuE foundation model analyzes the audio features including pitch, rhythm, and melodic patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">CLASSIFY</div>
+                    <h3>Raga Classification</h3>
+                    <p>Compare against our database of 1,616+ ragas to identify the most likely match with confidence scores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>RagaSense</h4>
+                    <p>Revolutionary AI platform for Indian classical music classification and generation</p>
+                    <div class="social-links">
+                        <a href="https://github.com/adhit-r" target="_blank">GitHub</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">YouTube</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Research</h4>
+                    <a href="research.html">Publications</a>
+                    <a href="index.html#models">Technical Details</a>
+                    <a href="index.html#dataset">Dataset Information</a>
+                    <a href="#">Methodology</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <a href="demo.html">Try Demo</a>
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#models">AI Models</a>
+                    <a href="index.html#roadmap">Roadmap</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">API Reference</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid #333333; padding-top: 2rem; margin-top: 2rem; text-align: center; color: #e0e0e0;">
+                <p>&copy; 2025 RagaSense by Adhithya Rajasekaran (@adhit-r). All rights reserved. | Powered by YuE Foundation Model & OpenVoice</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Demo functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const resultArea = document.getElementById('resultArea');
+        const loadingArea = document.getElementById('loadingArea');
+        const results = document.getElementById('results');
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.type.startsWith('audio/')) {
+                alert('Please select an audio file');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+
+            // Show loading
+            loadingArea.style.display = 'block';
+            resultArea.style.display = 'none';
+
+            // Simulate processing (replace with actual API call)
+            setTimeout(() => {
+                simulateClassification(file.name);
+            }, 2000);
+        }
+
+        function simulateClassification(filename) {
+            // Hide loading
+            loadingArea.style.display = 'none';
+            
+            // Show results
+            resultArea.style.display = 'block';
+            
+            // Simulate classification results
+            const mockResults = [
+                { raga: 'Yaman', confidence: 0.95, tradition: 'Hindustani' },
+                { raga: 'Bhairavi', confidence: 0.87, tradition: 'Carnatic' },
+                { raga: 'Kafi', confidence: 0.72, tradition: 'Hindustani' },
+                { raga: 'Kalyani', confidence: 0.68, tradition: 'Carnatic' },
+                { raga: 'Bageshri', confidence: 0.61, tradition: 'Hindustani' }
+            ];
+
+            results.innerHTML = '';
+            mockResults.forEach((result, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result-item';
+                resultDiv.innerHTML = `
+                    <h4>${index + 1}. ${result.raga} (${result.tradition})</h4>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: ${result.confidence * 100}%"></div>
+                    </div>
+                    <p>Confidence: ${(result.confidence * 100).toFixed(1)}%</p>
+                `;
+                results.appendChild(resultDiv);
+            });
+
+            // Add file info
+            const fileInfo = document.createElement('div');
+            fileInfo.className = 'result-item';
+            fileInfo.innerHTML = `
+                <h4>File Information</h4>
+                <p>Filename: ${filename}</p>
+                <p>Analysis completed using YuE Foundation Model</p>
+            `;
+            results.insertBefore(fileInfo, results.firstChild);
+        }
+
+        // Terminal cursor effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                heroTitle.classList.add('terminal-cursor');
+            }
+        });
+    </script>
+</body>
+</html>

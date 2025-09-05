@@ -1,0 +1,398 @@
+/* Terminal-style CSS for RagaSense */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Geist Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    line-height: 1.6;
+    color: #e0e0e0;
+    background: #0a0a0a;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+        /* Header */
+        header {
+            background: #0a0a0a;
+            border-bottom: 1px solid #333333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: #e0e0e0;
+            background: #0a0a0a;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+        .btn {
+            padding: 12px 30px;
+            border: 1px solid #333333;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Geist Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .btn-primary {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #555555;
+            color: #ffffff;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #e0e0e0;
+            border: 1px solid #333333;
+        }
+
+        .btn-secondary:hover {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        /* Sections */
+        .features, .dataset, .models, .research, .roadmap {
+            padding: 80px 0;
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+        .feature-card {
+            background: #0a0a0a;
+            padding: 2rem;
+            border: 1px solid #333333;
+            text-align: center;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+        }
+
+        .feature-card:hover {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card:hover .feature-icon {
+            color: #ffffff;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card:hover h3 {
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .feature-card:hover p {
+            color: #e0e0e0;
+        }
+
+/* Dataset Section */
+.dataset-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+        .stat-card {
+            background: #0a0a0a;
+            padding: 2rem;
+            border: 1px solid #333333;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+        }
+
+/* Models Section */
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+        .model-card {
+            background: #0a0a0a;
+            padding: 2rem;
+            border: 1px solid #333333;
+            color: #e0e0e0;
+        }
+
+        .model-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .model-card p {
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+.model-specs {
+    list-style: none;
+    padding: 0;
+}
+
+        .model-specs li {
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .model-specs li:before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+/* Research Section */
+.research-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+        .research-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .research-content p {
+            color: #e0e0e0;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+.research-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Roadmap Section */
+.roadmap-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+        .roadmap-item {
+            background: #0a0a0a;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #333333;
+            color: #e0e0e0;
+        }
+
+        .roadmap-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .roadmap-item p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            padding: 3rem 0 1rem;
+            border-top: 1px solid #333333;
+        }
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .footer-section a {
+            color: #e0e0e0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+.footer-section a:hover {
+    color: #ffffff;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            transition: color 0.3s ease;
+        }
+
+.social-links a:hover {
+    color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .features-grid,
+    .dataset-stats,
+    .models-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Terminal cursor effect */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+        .terminal-cursor::after {
+            content: "_";
+            animation: blink 1s infinite;
+            color: #ffffff;
+        }
