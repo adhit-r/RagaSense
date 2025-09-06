@@ -6,7 +6,7 @@ Simple test to verify the honest approach works
 
 import logging
 from pathlib import Path
-from honest_raga_classifier import HonestRagaClassifier
+from raga_classifier_cnn_v1.0 import HonestRagaClassifier
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ def test_honest_classifier():
                 
                 # Test model initialization
                 logger.info("Testing model initialization...")
-                from honest_raga_classifier import SimpleRagaCNN
+                from raga_classifier_cnn_v1.0 import SimpleRagaCNN
                 classifier.model = SimpleRagaCNN(num_classes=2).to(classifier.device)
                 logger.info("✅ Model initialized successfully")
                 
