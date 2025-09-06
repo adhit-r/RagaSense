@@ -69,6 +69,8 @@ class EnhancedTemporalEncoder(nn.Module):
         conv_outputs = []
         for conv in self.temporal_convs:
             conv_out = F.relu(conv(x_conv))
+            # Ensure all outputs have the same temporal dimension
+            conv_out = F.interpolate(conv_out, size=seq_len, mode='linear', align_corners=False)
             conv_outputs.append(conv_out)
         
         # Concatenate multi-scale features
