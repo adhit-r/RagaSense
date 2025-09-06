@@ -1,0 +1,44 @@
+# RagaSense Dataset Collection Requirements
+
+# Core dependencies
+pandas>=1.5.0
+numpy>=1.21.0
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+lxml>=4.9.0
+
+# Audio processing
+librosa>=0.9.0
+soundfile>=0.10.0
+pydub>=0.25.0
+torchaudio>=0.12.0
+
+# Data collection
+kaggle>=1.5.0
+youtube-dl>=2022.1.0
+yt-dlp>=2022.1.0
+gitpython>=3.1.0
+
+# XML processing
+xmltodict>=0.12.0
+xml.etree.ElementTree
+
+# File handling
+pathlib
+shutil
+zipfile
+json
+logging
+subprocess
+time
+
+# Data validation
+scipy>=1.9.0
+scikit-learn>=1.1.0
+
+# Progress tracking
+tqdm>=4.64.0
+
+# Optional: For advanced audio analysis
+# essentia>=2.1b6
+# madmom>=0.16.0
