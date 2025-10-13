@@ -34,7 +34,9 @@ Pillow>=10.0.0
 opencv-python>=4.8.0
 tqdm>=4.65.0
 
-# Optional: Advanced MLflow features
-# mlflow[databricks]>=2.8.0  # For Databricks integration
-# mlflow[azure]>=2.8.0       # For Azure integration
-# mlflow[aws]>=2.8.0         # For AWS integration
+# Carnatic Raga Classifier Dependencies
+ruamel.yaml>=0.17.0
+
+# Optional: For advanced audio processing
+# resampy>=0.4.0
+# pydub>=0.25.0

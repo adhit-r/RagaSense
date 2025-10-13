@@ -21,8 +21,8 @@ fastapi-cors>=0.0.6
 requests>=2.31.0
 
 # Convex integration
-convex-api>=0.0.3
-python-dotenv>=1.0.0
+# Note: Uses direct HTTP requests, no external package needed
+# python-dotenv>=1.0.0
 
 # Authentication
 python-jose[cryptography]>=3.3.0
